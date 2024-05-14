@@ -1,0 +1,36 @@
+@import "~include-media/dist/include-media";
+
+.c-tile
+  margin: .2rem
+  width: 60px
+  height: 80px
+  display: flex
+  align-items: center
+  justify-content: center
+  background: url('../../images/tiles/Front.png') no-repeat
+  background-size: contain
+  box-shadow: 5px #ccc
+
+  &__img
+    height: 60px
+
+    &--back
+      height: 80px
+
+  &--open
+    transform: rotate(90deg) translateX(10px)
+
+@include media('<tablet')
+
+  .c-tile
+    width: 40px
+    height: 60px
+
+    &__img
+      height: 40px
+
+      &--back
+        height: 60px
+
+    &--open
+      transform: rotate(90deg) translateX(4px)
