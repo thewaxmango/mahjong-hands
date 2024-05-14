@@ -1,7 +1,7 @@
 from itertools import chain
     
 class SolarSystem:
-    planets = [list (chain (planet, (index + 1,))) for index, planet in enumerate ((
+    planets = [list(chain (planet, (index + 1,))) for index, planet in enumerate((
         ('Mercury', 'hot', 2240),
         ('Venus', 'sulphurous', 6052),
         ('Earth', 'fertile', 6378),
@@ -22,14 +22,14 @@ class SolarSystem:
         self.lineIndex = 0
     
     def greet (self):
-        self.planet = self.planets [int (Math.random () * len (self.planets))]
-        document.getElementById ('greet') .innerHTML = 'Hello {}'.format (self.planet [0])
-        self.explain ()
+        self.planet = self.planets [int (Math.random() * len (self.planets))]
+        document.getElementById('greet').innerHTML = 'Hello {}'.format (self.planet[0])
+        self.explain()
         
     def explain (self):
         document.getElementById ('explain').innerHTML = (
-            self.lines [self.lineIndex] .format (self.planet [0], self.planet [self.lineIndex + 1])
+            self.lines[self.lineIndex].format(self.planet[0], self.planet[self.lineIndex + 1])
         )
         self.lineIndex = (self.lineIndex + 1) % 3
         
-solarSystem = SolarSystem ()
+solarSystem = SolarSystem()
