@@ -1,0 +1,64 @@
+.jp {
+    float: left;
+    min-width: 20px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 350;
+    font-style: normal;
+    font-size: large;
+    letter-spacing: 1px;
+}
+
+body {
+    background-color:darkslateblue;
+    color: white;
+}
+
+.container {
+    position: relative;
+    left: 20px;
+    width: 100%;
+}
+
+.header {
+    display: flex;
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.title {
+    height: 100%;
+    width: 24px;
+}
+
+.hand {
+    display: flex;
+    height: 126px;
+    align-items: flex-end;  
+}
+
+.hand .title .vertical {
+    position: relative;
+    left: -6px;
+    bottom: 4px;
+
+    transform: rotate(-90deg);
+    transform-origin: 63px 63px;
+
+    height: 24px;
+    width: 126px;
+    margin: 0;
+
+    letter-spacing: 2px;
+}
+
+.hand .divider {
+    border-left:3px solid white; 
+    height: 120px;
+    margin-right: 13px;
+    margin-bottom: 3px;
+}
+
+.hand svg {
+    margin-left: -1px;
+    margin-right: -1px;
+}

@@ -2,30 +2,64 @@
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
-        <title>Puzzles</title>
-        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> -->
+        <title>mahjong-score</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
     </head>
     
     <body>
+        <div class="container">
+            <div class="header">
+                <p class="jp">
+                    Round Wind:<br>Seat Wind:<br>Win Type:
+                </p><p></p>
+                <p class="jp">
+                    <b><span id="round-wind">「東」East</span></b><br>
+                    <b><span id="seat-wind">「西」West</span></b><br>
+                    <b><span id="round-wind">「ロン」Ron</span></b>
+                </p>
+            </div>
+
+            <div class="hand">
+                <div class="title">
+                    <p class="vertical jp">HAND
+                </div>
+
+                <div class="divider"></div>
+
+                <svg width="64" height="84">
+                    <image x="2" y="2" width="60" height="80" href="static/mahjong-svgs/Regular/Front.svg"/>
+                    <image x="9.5" y="12" width="45" height="60" href="static/mahjong-svgs/Regular/Chun.svg"/>
+                    <rect width="60" height="80" x="2" y="2" rx="8" style="fill:transparent;stroke:gray;stroke-width:3;stroke-opacity:1"/>
+                </svg>
+                <svg width="84" height="126">
+                    <image transform="rotate(90 10 70)" x="5" y="-2" width="60" height="80" href="static/mahjong-svgs/Regular/Front.svg"></image>
+                    <image transform="rotate(90 10 70)" x="11.5" y="8" width="45" height="60" href="static/mahjong-svgs/Regular/Chun.svg"></image>
+                    <rect width="80" height="60" x="2" y="64" rx="8" style="fill:transparent;stroke:gray;stroke-width:3;stroke-opacity:1"/>
+
+                    <image transform="rotate(90 40 40)" x="2" y="-2" width="60" height="80" href="static/mahjong-svgs/Regular/Front.svg"></image>
+                    <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/mahjong-svgs/Regular/Chun.svg"></image>
+                    <rect width="80" height="60" x="2" y="2" rx="8" style="fill:transparent;stroke:gray;stroke-width:3;stroke-opacity:1"/>
+                </svg>
+                <svg width="64" height="84">
+                    <image x="2" y="2" width="60" height="80" href="static/mahjong-svgs/Regular/Front.svg"/>
+                    <image x="9.5" y="12" width="45" height="60" href="static/mahjong-svgs/Regular/Chun.svg"/>
+                    <rect width="60" height="80" x="2" y="2" rx="8" style="fill:transparent;stroke:gray;stroke-width:3;stroke-opacity:1"/>
+                </svg>
+                <svg width="84" height="64">
+                    <image transform="rotate(90 40 40)" x="2" y="-2" width="60" height="80" href="static/mahjong-svgs/Regular/Front.svg"></image>
+                    <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/mahjong-svgs/Regular/Man6.svg"></image>
+                    <rect width="80" height="60" x="2" y="2" rx="8" style="fill:transparent;stroke:gray;stroke-width:3;stroke-opacity:1"/>
+                </svg>
+            </div>
+        </div>
 
         <script type="text/javascript">
-            const tile_data = {};
             
-            class Hand {
-                #valid = false;
-
-                #tiles = {};
-                #winning_tile = null;
-                
-                constructor() {
-                }
-
-                set add_tile(tile) {
-                    
-                }
-
-
-            }
+            
         </script>
     </body>
 </html>
