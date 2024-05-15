@@ -2,12 +2,12 @@
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
-        <title>mahjong-score</title>
+        <title>mahjong score</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&amp;display=swap" rel="stylesheet">
     </head>
     
     <body>
@@ -16,102 +16,216 @@
                 <div class="header-left">
                     <div class="header-text">
                         <p class="jp">
-                            Round Wind:<br>Seat Wind:<br>Win Type:
-                        </p><p></p>
+                            Round Wind:<br>Seat Wind:<br>Win By:
+                        </p>
+                        <div class="spacer"></div>
                         <p class="jp">
                             <b><span id="round-wind">「東」East</span></b><br>
                             <b><span id="seat-wind">「西」West</span></b><br>
-                            <b><span id="round-wind">「ロン」Ron</span></b>
+                            <b><span id="win-by">「ツモ」Tsumo</span></b>
                         </p>
                     </div>
-                    <div class="riichi-box" style="display:nonee;">
+                    <div class="riichi-box">
                         <div class="riichi-stick">•</div>
+                        <div class="justified jp">&nbsp;<span class="yaku-green">「立直」RIICHI&nbsp;</span>&nbsp;</div>
+                        <div class="justified jp">&nbsp;<span class="yaku-gray">「両立直」DOUBLE&nbsp;</span>&nbsp;</div>
                     </div>
                 </div>
+
+                <div class="header-center">
+                    <div class="riichi-box">
+                        <div class="justified jp">&nbsp;<span class="yaku-green">「一発」IPPATSU&nbsp;</span>&nbsp;</div>
+                        <div class="justified jp">&nbsp;<span class="yaku-gray">「嶺上開花」RINSHAN&nbsp;</span>&nbsp;</div>
+                        <div class="justified jp">&nbsp;<span class="yaku-gray">「搶槓」CHANKAN&nbsp;</span>&nbsp;</div>
+                        <div class="justified jp">&nbsp;<span class="yaku-gray">「海底撈月」HAITEI&nbsp;</span>&nbsp;</div>
+                        <div class="justified jp">&nbsp;<span class="yaku-gray">「河底撈魚」HOUTEI&nbsp;</span>&nbsp;</div>
+                        <div class="justified jp">&nbsp;<span class="yaku-gray">「天和」TENHOU&nbsp;</span>&nbsp;</div>
+                        <div class="justified jp">&nbsp;<span class="yaku-gray">「地和」CHIIHOU&nbsp;</span>&nbsp;</div>
+                    </div>
+                </div>
+
                 <div class="dora">
                     <div class="dora-indicator">
                         <div class="title">
-                            <p class="vertical jp">DORA
+                            <p class="vertical jp">DORA</p>
                         </div>
-                        <div class="divider"></div>
+                        <div class="divider short-divider"></div>
 
-                        <svg width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/mahjong-svgs/Regular/Back.svg"/>
-                            <rect width="60" height="80" x="2" y="2" rx="8" style="fill:transparent;stroke:dimgray;stroke-width:3;stroke-opacity:1"/>
+                        <svg viewbox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/mahjong-svgs/Regular/Back.svg"/>
-                            <rect width="60" height="80" x="2" y="2" rx="8" style="fill:transparent;stroke:dimgray;stroke-width:3;stroke-opacity:1"/>
+                        <svg viewbox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/mahjong-svgs/Regular/Front.svg"/>
-                            <image x="9.5" y="12" width="45" height="60" href="static/mahjong-svgs/Regular/Chun.svg"/>
-                            <rect width="60" height="80" x="2" y="2" rx="8" style="fill:transparent;stroke:gray;stroke-width:3;stroke-opacity:1"/>
+                        <svg viewbox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
+                            <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Chun.svg"/>
+                            <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/mahjong-svgs/Regular/Back.svg"/>
-                            <rect width="60" height="80" x="2" y="2" rx="8" style="fill:transparent;stroke:dimgray;stroke-width:3;stroke-opacity:1"/>
+                        <svg viewbox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/mahjong-svgs/Regular/Back.svg"/>
-                            <rect width="60" height="80" x="2" y="2" rx="8" style="fill:transparent;stroke:dimgray;stroke-width:3;stroke-opacity:1"/>
+                        <svg viewbox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/mahjong-svgs/Regular/Back.svg"/>
-                            <rect width="60" height="80" x="2" y="2" rx="8" style="fill:transparent;stroke:dimgray;stroke-width:3;stroke-opacity:1"/>
+                        <svg viewbox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/mahjong-svgs/Regular/Back.svg"/>
-                            <rect width="60" height="80" x="2" y="2" rx="8" style="fill:transparent;stroke:dimgray;stroke-width:3;stroke-opacity:1"/>
+                        <svg viewbox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
                     </div>
 
-                    <div class="dora-indicator" style="display:nonee;">
+                    <div class="dora-indicator">
                         <div class="title">
-                            <p class="vertical jp" style="letter-spacing:-1px">URADORA
+                            <p class="vertical vertical-dense jp">URADORA</p>
                         </div>
-                        <div class="divider"></div>
+                        <div class="divider short-divider"></div>
+
+                        <svg viewbox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg viewbox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg viewbox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
+                            <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Pei.svg"/>
+                            <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg viewbox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg viewbox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg viewbox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg viewbox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
                     </div>
                 </div>
             </div>
 
-            <div class="hand">
-                <div class="title">
-                    <p class="vertical jp">HAND
+            <hr class="header-hr">
+
+            <div class="main">
+                <div class="hand">
+                    <div class="title">
+                        <p class="vertical jp">HAND</p>
+                    </div>
+                    <div class="divider"></div>
+
+                    <svg viewbox="0 0 64 84" width="64" height="84">
+                        <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
+                        <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Man5.svg"/>
+                        <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                    </svg>
+
+                    <div class="spacer"></div>
+
+                    <svg viewbox="0 0 64 84" width="64" height="84">
+                        <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
+                        <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Pin3.svg"/>
+                        <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                    </svg>
+                    <svg viewbox="0 0 64 84" width="64" height="84">
+                        <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
+                        <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Pin4.svg"/>
+                        <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                    </svg>
+                    <svg viewbox="0 0 84 64" width="84" height="64">
+                        <image transform="rotate(90 40 40)" x="2" y="-2" width="60" height="80" href="static/svgs/Front.png"></image>
+                        <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/svgs/Regular/Pin5.svg"></image>
+                        <rect class="tile-border" width="80" height="60" x="2" y="2" rx="6" style=""/>
+                    </svg>
+                    <svg viewbox="0 0 64 84" width="64" height="84">
+                        <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
+                        <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Pin3.svg"/>
+                        <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                    </svg>
+                    <svg viewbox="0 0 64 84" width="64" height="84">
+                        <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
+                        <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Pin4.svg"/>
+                        <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                    </svg>
+                    <svg viewbox="0 0 84 64" width="84" height="64">
+                        <image transform="rotate(90 40 40)" x="2" y="-2" width="60" height="80" href="static/svgs/Front.png"></image>
+                        <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/svgs/Regular/Pin5.svg"></image>
+                        <rect class="tile-border" width="80" height="60" x="2" y="2" rx="6" style=""/>
+                    </svg>
+                    <svg viewbox="0 0 64 84" width="64" height="84">
+                        <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
+                        <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Chun.svg"/>
+                        <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                    </svg>
+                    <svg viewbox="0 0 84 126" width="84" height="126">
+                        <image transform="rotate(90 10 70)" x="5" y="-2" width="60" height="80" href="static/svgs/Front.png"></image>
+                        <image transform="rotate(90 10 70)" x="11.5" y="8" width="45" height="60" href="static/svgs/Regular/Chun.svg"></image>
+                        <rect class="tile-border" width="80" height="60" x="2" y="64" rx="6"/>
+
+                        <image transform="rotate(90 40 40)" x="2" y="-2" width="60" height="80" href="static/svgs/Front.png"></image>
+                        <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/svgs/Regular/Chun.svg"></image>
+                        <rect class="tile-border" width="80" height="60" x="2" y="2" rx="6"/>
+                    </svg>
+                    <svg viewbox="0 0 64 84" width="64" height="84">
+                        <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
+                        <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Chun.svg"/>
+                        <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                    </svg>
+                    <svg viewbox="0 0 64 84" width="64" height="84">
+                        <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
+                        <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Man5.svg"/>
+                        <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                    </svg>
+                    <svg viewbox="0 0 84 64" width="84" height="64">
+                        <image transform="rotate(90 40 40)" x="2" y="-2" width="60" height="80" href="static/svgs/Front.png"></image>
+                        <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/svgs/Regular/Man6.svg"></image>
+                        <rect class="tile-border" width="80" height="60" x="2" y="2" rx="6" style=""/>
+                    </svg>
+                    <svg viewbox="0 0 64 84" width="64" height="84">
+                        <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
+                        <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Man7.svg"/>
+                        <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                    </svg>
                 </div>
+                <div class="hand">
+                    <div class="title">
+                        <p class="vertical jp">TSUMO</p>
+                    </div>
+                    <div class="divider short-divider"></div>
 
-                <div class="divider"></div>
-
-                <svg width="64" height="84">
-                    <image x="2" y="2" width="60" height="80" href="static/mahjong-svgs/Regular/Front.svg"/>
-                    <image x="9.5" y="12" width="45" height="60" href="static/mahjong-svgs/Regular/Chun.svg"/>
-                    <rect width="60" height="80" x="2" y="2" rx="8" style="fill:transparent;stroke:gray;stroke-width:3;stroke-opacity:1"/>
-                </svg>
-                <svg width="84" height="126">
-                    <image transform="rotate(90 10 70)" x="5" y="-2" width="60" height="80" href="static/mahjong-svgs/Regular/Front.svg"></image>
-                    <image transform="rotate(90 10 70)" x="11.5" y="8" width="45" height="60" href="static/mahjong-svgs/Regular/Chun.svg"></image>
-                    <rect width="80" height="60" x="2" y="64" rx="8" style="fill:transparent;stroke:gray;stroke-width:3;stroke-opacity:1"/>
-
-                    <image transform="rotate(90 40 40)" x="2" y="-2" width="60" height="80" href="static/mahjong-svgs/Regular/Front.svg"></image>
-                    <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/mahjong-svgs/Regular/Chun.svg"></image>
-                    <rect width="80" height="60" x="2" y="2" rx="8" style="fill:transparent;stroke:gray;stroke-width:3;stroke-opacity:1"/>
-                </svg>
-                <svg width="64" height="84">
-                    <image x="2" y="2" width="60" height="80" href="static/mahjong-svgs/Regular/Front.svg"/>
-                    <image x="9.5" y="12" width="45" height="60" href="static/mahjong-svgs/Regular/Chun.svg"/>
-                    <rect width="60" height="80" x="2" y="2" rx="8" style="fill:transparent;stroke:gray;stroke-width:3;stroke-opacity:1"/>
-                </svg>
-                <svg width="84" height="64">
-                    <image transform="rotate(90 40 40)" x="2" y="-2" width="60" height="80" href="static/mahjong-svgs/Regular/Front.svg"></image>
-                    <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/mahjong-svgs/Regular/Man6.svg"></image>
-                    <rect width="80" height="60" x="2" y="2" rx="8" style="fill:transparent;stroke:gray;stroke-width:3;stroke-opacity:1"/>
-                </svg>
+                    <svg viewbox="0 0 64 84" width="64" height="84">
+                        <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
+                        <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Man5-Dora.svg"/>
+                        <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                    </svg>
+                </div>
             </div>
         </div>
 
         <script type="text/javascript">
-            
-            
+            let hand = [];
+            console.log("a");
+
+            const draw_hand = function (hand) {
+                console.log("h");
+            }
+            draw_hand();
         </script>
     </body>
 </html>
