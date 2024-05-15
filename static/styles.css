@@ -51,14 +51,15 @@ body {
 }
 
 .header-left {
-    width: 270px;
+    width: 290px;
 }
 
 .header-text {
     display: flex;
     height: 100px;
+    width: 271px;
     border: 2px solid white;
-    padding-left: 10px;
+    padding-left: 15px;
 }
 
 .header-text p {
@@ -89,7 +90,7 @@ body {
 }
 
 .dora {
-    margin-left: 40px;
+    margin-left: 30px;
 }
 
 .dora-indicator {
@@ -110,6 +111,11 @@ body {
 .dora-indicator .divider {
     height: 82px;
     margin-bottom: 1px;
+}
+
+.dora-indicator svg {
+    margin-left: -1px;
+    margin-right: -1px;
 }
 
 .hand {
