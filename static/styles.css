@@ -183,7 +183,7 @@ body {
     margin-right: -1px;
 }
 
-.hand {
+.hand-row, .hand {
     display: flex;
     height: 126px;
     align-items: flex-end;  
@@ -191,18 +191,23 @@ body {
     margin-top: 8px;
 }
 
-.hand .title .vertical {
+.hand-row .title .vertical {
     transform-origin: 63px 63px;
     width: 126px;
     bottom: 2px;
 }
 
-.hand .divider {
+.hand-row .divider {
     height: 124px;
     margin-bottom: 1px;
 }
 
-.hand svg {
+.hand {
+    /* non-tsumo/ron hand: 0.8 for 17 wide, 0.85 for 16 wide, 0.9 for 15 wide, 0.95 for 14 wide, 1 for 13 wide */
+    zoom: 1;
+}
+
+.tile-svg {
     margin-left: -1px;
     margin-right: -1px;
 }
