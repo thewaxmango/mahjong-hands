@@ -1,0 +1,1 @@
+{'type': 'RON', 'player': 1, 'hand': ['4p1', '4p3', '5p2', '5p3', '6p1', '6p2', '7p0', '7p2', '7p3', '8p1', '8p2', '7s0', '8s0', '9s2'], 'fu': 40, 'points': 24000, 'limit': 'baiman', 'dora': ['6p3'], 'machi': ['7p3'], 'melds': [], 'closed': True, 'uradora': [], 'fromPlayer': 2, 'yaku': [['Riichi', 1], ['Iipeikou', 1], ['Dora', 3], ['Uradora', 3]], 'yakuman': []}
