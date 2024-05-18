@@ -1,0 +1,4 @@
+log-libraries/phoenix-logs/logs/*
+log-libraries/phoenix-logs/db/*
+tenhou-log/logs/*
+tenhou-log/agari_logs/*

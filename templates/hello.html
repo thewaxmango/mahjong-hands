@@ -1,0 +1,18 @@
+<body>
+    <script type="module">
+        import * as e from "{{ url_for("static", filename="transcrypt/__target__/hello.js") }}";
+        window.e = e;
+    </script>
+
+    <h2>Hello demo</h2>
+
+    <div id = "greet">...</div>
+    <button onclick="e.solarSystem.greet()">
+        Click me repeatedly!
+    </button>
+
+    <div id = "explain">...</div>
+    <button onclick="e.solarSystem.explain()">
+        And click me repeatedly too!
+    </button>
+</body>
