@@ -299,7 +299,8 @@ body {
 
 .han-green, .pts-green {
     background-color: #04AA6D;
-    border: 4px solid #04AA6D; 
+    border: 4px solid #04AA6D;
+    pointer-events: none;
 }
 
 .han-green, .han-red, .han-blue {
@@ -328,6 +329,7 @@ body {
 .han-red, .pts-red {
     background-color: #f44336;
     border: 4px solid #f44336;
+    pointer-events: none;
 }
 
 .points-group .title {
@@ -362,6 +364,100 @@ body {
     width: 536px
 }
 
-.sanbaiman-small {
+.ndts-small {
     font-size: small;
+}
+
+@keyframes custom-fadein {
+    0%   {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+  
+@keyframes custom-fadeout {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+  
+.overlay, .overlay-show, .overlay-hide {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    height: 100%;
+    width: 100%;
+    z-index: 50;
+    opacity: 0;
+}
+
+.overlay {
+    pointer-events: none;
+}
+  
+.overlay-show {
+    opacity: 1;
+    display: block;
+    animation-name: custom-fadein;
+    animation-duration: 0.5s;
+    pointer-events: auto;
+}
+  
+.overlay-hide {
+    display: block;
+    animation-name: custom-fadeout;
+    animation-duration: 0.5s;
+    pointer-events: none;
+}
+
+.score-chart {
+    display: grid;
+    grid-template-rows: 32px 32px 32px 32px 32px;
+    grid-template-columns: 102px 102px 102px 102px 102px 102px 102px 102px 102px 102px 102px 102px;
+    grid-column-gap: 10px;
+    grid-row-gap: 12px;
+    background-color: transparent;
+    color: #444;
+
+    margin: auto;
+    margin-top: 385px;
+    width: fit-content;
+    z-index: 51;
+}
+
+.chart-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 52;
+}
+
+.chart-button {
+    height: 100%;
+    opacity: 1 !important;
+    z-index: 54;
+}
+
+.chart-label {
+    background-color: rgba(74, 74, 64, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-top: 3px;
+    margin-left: -3px;
+    height: 80%;
+    width: 80%;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    opacity: 1 !important;
+    font-size: small;
+    z-index: 53;
 }
