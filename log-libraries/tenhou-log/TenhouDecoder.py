@@ -242,13 +242,13 @@ class Game(Data):
         self.rounds = []
         self.owari = ""
 
-    def tagGO(self, tag, data, code):
+    def tagGO(self, tag, data, code, seed):
         # The <GO lobby=""/> attribute was introduced at some point between
         # 2010 and 2012:
         self.gameType = data["type"]
         self.lobby = data.get("lobby")
 
-    def tagUN(self, tag, data, code):
+    def tagUN(self, tag, data, code, seed):
         if "dan" in data:
             for name in self.NAMES:
                 # An empty name, along with sex C, rank 0 and rate 1500 are
@@ -271,10 +271,10 @@ class Game(Data):
                 if name in data:
                     player.connected = True
 
-    def tagBYE(self, tag, data, code):
+    def tagBYE(self, tag, data, code, seed):
         self.players[int(data["who"])].connected = False
 
-    def tagINIT(self, tag, data, code):
+    def tagINIT(self, tag, data, code, seed):
         name, combo, riichi, d0, d1, dora = self.decodeList(data["seed"])
         self.round = Round()
         self.rounds.append(self.round)
@@ -284,19 +284,19 @@ class Game(Data):
 
         Dora(self.round.events).tile = Tile(dora)
 
-    def tagN(self, tag, data, code):
+    def tagN(self, tag, data, code, seed):
         call = Call(self.round.events)
         call.meld = Meld.decode(data["m"])
         call.player = int(data["who"])
         self.round.turns[call.player] += 1
 
-    def tagTAIKYOKU(self, tag, data, code):
+    def tagTAIKYOKU(self, tag, data, code, seed):
         pass
 
-    def tagDORA(self, tag, data, code):
+    def tagDORA(self, tag, data, code, seed):
         Dora(self.round.events).tile = int(data["hai"])
 
-    def tagRYUUKYOKU(self, tag, data, code):
+    def tagRYUUKYOKU(self, tag, data, code, seed):
         self.round.ryuukyoku = True
 
         deltas = data['sc'].split(',')
@@ -313,7 +313,7 @@ class Game(Data):
                 if attr_name in data:
                     tenpai.append(index)
 
-    def tagAGARI(self, tag, data, code):
+    def tagAGARI(self, tag, data, code, seed):
         agari = Agari()
         self.round.agari.append(agari)
         agari.type = "RON" if data["fromWho"] != data["who"] else "TSUMO"
@@ -334,7 +334,7 @@ class Game(Data):
         else:
             agari.closed = True
         if "dorahaiUra" in data:
-            agari.uradora = self.decodeList(data["uradoraHai"], Tile)
+            agari.uradora = self.decodeList(data["dorahaiUra"], Tile)
         if agari.type == "RON":
             agari.fromPlayer = int(data["fromWho"])
         if "yaku" in data:
@@ -348,19 +348,19 @@ class Game(Data):
                 for yaku in self.decodeList(data["yakuman"]))
         if 'owari' in data:
             self.owari = data['owari']
-            
+    
         with open(f"./agari_logs/{code}.txt", "a+") as file:
             file.write(str(agari))
             file.write("\n")
             
-    def tagREACH(self, tag, data, code):
+    def tagREACH(self, tag, data, code, seed):
         if 'ten' in data:
             player = int(data['who'])
             self.round.reaches.append(player)
             self.round.reach_turns.append(self.round.turns[player])
 
     @staticmethod
-    def default(obj, tag, data, code):
+    def default(obj, tag, data, code, seed):
         if obj.suppress_draws:
             return
         if tag[0] in "DEFG":
@@ -391,8 +391,13 @@ class Game(Data):
         self.rounds = []
         self.players = []
 
+        seed = "fake-seed"
         for event in events:
-            self.TAGS.get(event.tag, self.default)(self, event.tag, event.attrib, code)
+            if event.tag == "SHUFFLE":
+                with open(f"./agari_logs/{code}.txt", "a+") as file:
+                    file.write(event.attrib['seed'][29:])
+                    file.write("\n")
+            self.TAGS.get(event.tag, self.default)(self, event.tag, event.attrib, code, seed)
             if self.players and len(self.players) != 4:
                 break
         

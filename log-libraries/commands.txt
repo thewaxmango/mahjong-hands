@@ -1,2 +1,2 @@
 .../tenhou-log> python analyze_xml.py
-.../phoenix-logs> python main.py -a content -y 2009 -l {howmany} -t {threads} --strip
+.../phoenix-logs> python main.py -a content -y {year} -l {howmany} -t {threads} --strip
