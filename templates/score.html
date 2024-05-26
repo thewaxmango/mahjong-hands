@@ -2,12 +2,15 @@
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
-        <title>mahjong score</title>
+        <title>Mahjong Score</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <link rel="icon" href="{{ url_for('static', filename='svgs/Regular/Chun.svg') }}">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&amp;display=swap" rel="stylesheet">
+        <script src="https://natsuai.com/static/js/mahjong.js"></script>
+        <script src="https://natsuai.com/static/js/mahjong-chrome-compatibility.js"></script>
     </head>
     
     <body>
@@ -79,32 +82,32 @@
                         </div>
                         <div class="divider short-divider"></div>
 
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" id="dora1" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
                             <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Chun.svg"/>
                             <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" id="dora2" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" id="dora3" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" id="dora4" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" id="dora5" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
@@ -116,32 +119,32 @@
                         </div>
                         <div class="divider short-divider"></div>
 
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" id="ura1" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
                             <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Ton.svg"/>
                             <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" id="ura2" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" id="ura3" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" id="ura4" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" id="ura5" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
@@ -201,7 +204,7 @@
                             <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Chun.svg"/>
                             <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 84 126" width="84" height="126">
+                        <svg class="tile-svg" viewbox="0 0 84 126" width="84" height="126">
                             <image transform="rotate(90 10 70)" x="5" y="-2" width="60" height="80" href="static/svgs/Front.png"></image>
                             <image transform="rotate(90 10 70)" x="11.5" y="8" width="45" height="60" href="static/svgs/Regular/Chun.svg"></image>
                             <rect class="tile-border" width="80" height="60" x="2" y="64" rx="6"/>
@@ -210,22 +213,22 @@
                             <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/svgs/Regular/Chun.svg"></image>
                             <rect class="tile-border" width="80" height="60" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
                             <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Chun.svg"/>
                             <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
                             <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Man6.svg"/>
                             <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg viewbox="0 0 84 64" width="84" height="64">
+                        <svg class="tile-svg" viewbox="0 0 84 64" width="84" height="64">
                             <image transform="rotate(90 40 40)" x="2" y="-2" width="60" height="80" href="static/svgs/Front.png"></image>
                             <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/svgs/Regular/Man6.svg"></image>
                             <rect class="tile-border" width="80" height="60" x="2" y="2" rx="6" style=""/>
                         </svg>
-                        <svg viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
                             <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Man6.svg"/>
                             <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
@@ -242,7 +245,7 @@
                     </div>
                     <div class="divider short-divider"></div>
 
-                    <svg viewbox="0 0 64 84" width="64" height="84">
+                    <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
                         <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
                         <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Man5-Dora.svg"/>
                         <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
@@ -274,7 +277,7 @@
                     </div>
                     <div class="points-selector">
                         <button id="11han" class="han-blue jp">11 HAN</button>
-                        <button id="12han" class="han-red jp">12 HAN</button>
+                        <button id="12han" class="han-blue jp">12 HAN</button>
                         <button id="13han" class="han-blue jp">13+ HAN</button>
                     </div>
                 </div>
@@ -287,57 +290,57 @@
                 <div id="dealer-ron" hidden>
                     <div class="points-selector">
                         <button id="table-dr" class="pts-blue jp">☰ TABLE (1500 - 11600)</button>
-                        <button id="mangan-dr" class="pts-blue jp r">「満貫」MANGAN (12000)</button>
+                        <button id="mangan-dr" class="pts-blue jp r">「満貫」MANGAN (12000)&nbsp;</button>
                     </div>
                     <div class="points-selector">
-                        <button id="haneman-dr" class="pts-blue jp">「跳満」HANEMAN (18000)</button>
-                        <button id="baiman-dr" class="pts-blue jp r">「倍満」BAIMAN (24000)</button>
+                        <button id="haneman-dr" class="pts-blue jp">「跳満」HANEMAN (18000)&nbsp;</button>
+                        <button id="baiman-dr" class="pts-blue jp r">「倍満」BAIMAN (24000)&nbsp;</button>
                     </div>
                     <div class="points-selector">
-                        <button id="sanbaiman-dr" class="pts-blue jp">「三倍満」SANBAIMAN (36000)</button>
-                        <button id="yakuman-dr" class="pts-blue jp r">「役満」YAKUMAN+ (48000+)</button>
+                        <button id="sanbaiman-dr" class="pts-blue jp">「三倍満」SANBAIMAN (36000)&nbsp;</button>
+                        <button id="yakuman-dr" class="pts-blue jp r">「役満」YAKUMAN+ (48000+)&nbsp;</button>
                     </div>
                 </div>
                 <div id="dealer-tsumo" hidden>
                     <div class="points-selector">
                         <button id="table-dts" class="pts-blue jp">☰ TABLE (∀500 - 3900)</button>
-                        <button id="mangan-dts" class="pts-blue jp r">「満貫」MANGAN (∀4000)</button>
+                        <button id="mangan-dts" class="pts-blue jp r">「満貫」MANGAN (∀4000)&nbsp;</button>
                     </div>
                     <div class="points-selector">
-                        <button id="haneman-dts"class="pts-blue jp">「跳満」HANEMAN (∀6000)</button>
-                        <button id="baiman-dts" class="pts-blue jp r">「倍満」BAIMAN (∀8000)</button>
+                        <button id="haneman-dts"class="pts-blue jp">「跳満」HANEMAN (∀6000)&nbsp;</button>
+                        <button id="baiman-dts" class="pts-blue jp r">「倍満」BAIMAN (∀8000)&nbsp;</button>
                     </div>
                     <div class="points-selector">
-                        <button id="sanbaiman-dts" class="pts-blue jp">「三倍満」SANBAIMAN (∀12000)</button>
-                        <button id="yakuman-dts" class="pts-blue jp r">「役満」YAKUMAN+ (∀16000+)</button>
+                        <button id="sanbaiman-dts" class="pts-blue jp">「三倍満」SANBAIMAN (∀12000)&nbsp;</button>
+                        <button id="yakuman-dts" class="pts-blue jp r">「役満」YAKUMAN+ (∀16000+)&nbsp;</button>
                     </div>
                 </div>
                 <div id="nondealer-ron" >
                     <div class="points-selector">
                         <button id="table-ndr" class="pts-blue jp">☰ TABLE (1000 - 7700)</button>
-                        <button id="mangan-ndr" class="pts-blue jp r">「満貫」MANGAN (8000)</button>
+                        <button id="mangan-ndr" class="pts-blue jp r">「満貫」MANGAN (8000)&nbsp;</button>
                     </div>
                     <div class="points-selector">
-                        <button id="haneman-ndr" class="pts-blue jp">「跳満」HANEMAN (12000)</button>
-                        <button id="baiman-ndr" class="pts-blue jp r">「倍満」BAIMAN (16000)</button>
+                        <button id="haneman-ndr" class="pts-blue jp">「跳満」HANEMAN (12000)&nbsp;</button>
+                        <button id="baiman-ndr" class="pts-blue jp r">「倍満」BAIMAN (16000)&nbsp;&nbsp;</button>
                     </div>
                     <div class="points-selector">
-                        <button id="sanbaiman-ndr" class="pts-blue jp">「三倍満」SANBAIMAN (24000)</button>
-                        <button id="yakuman-ndr" class="pts-blue jp r">「役満」YAKUMAN+ (32000+)</button>
+                        <button id="sanbaiman-ndr" class="pts-blue jp">「三倍満」SANBAIMAN (24000)&nbsp;</button>
+                        <button id="yakuman-ndr" class="pts-blue jp r">「役満」YAKUMAN+ (32000+)&nbsp;</button>
                     </div>
                 </div>
                 <div id="nondealer-tsumo" hidden>
                     <div class="points-selector">
                         <button id="table-ndts" class="pts-blue jp">☰ TABLE (500/300 - 3900/2000)</button>
-                        <button id="mangan-ndts" class="pts-blue jp r">「満貫」MANGAN (4000/2000)</button>
+                        <button id="mangan-ndts" class="pts-blue jp r">「満貫」MANGAN (4000/2000)&nbsp;</button>
                     </div>
                     <div class="points-selector">
-                        <button id="haneman-ndts" class="pts-blue jp">「跳満」HANEMAN (6000/3000)</button>
-                        <button id="baiman-ndts" class="pts-blue jp r">「倍満」BAIMAN (8000/4000)</button>
+                        <button id="haneman-ndts" class="pts-blue jp">「跳満」HANEMAN (6000/3000)&nbsp;</button>
+                        <button id="baiman-ndts" class="pts-blue jp r">「倍満」BAIMAN (8000/4000)&nbsp;</button>
                     </div>
                     <div class="points-selector">
-                        <button id="sanbaiman-ndts" class="pts-blue jp ndts-small">「三倍満」SANBAIMAN (12000/6000)</button>
-                        <button id="yakuman-ndts" class="pts-blue jp ndts-small r">「役満」YAKUMAN+ (16000/8000+)</button>
+                        <button id="sanbaiman-ndts" class="pts-blue jp ndts-small">「三倍満」SANBAIMAN (12000/6000)&nbsp;</button>
+                        <button id="yakuman-ndts" class="pts-blue jp ndts-small r">「役満」YAKUMAN+ (16000/8000+)&nbsp;</button>
                     </div>
                 </div>
             </div>

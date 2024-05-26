@@ -3,7 +3,7 @@ import TenhouDecoder
 from os import listdir
 from os.path import isfile, join
 
-path = "./logs"
+path = "../logs"
 onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
 k = len(onlyfiles)
 

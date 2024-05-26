@@ -109,7 +109,7 @@ class DownloadLogContent(object):
             was_error = True
             
         if self.strip_logs:
-            with open(f"./logs/{log_id}.txt", "wb") as file:
+            with open(f"../logs/{log_id}.txt", "wb") as file:
                 file.write(binary_content)
             binary_content = self.strip_log_tags(binary_content)
 

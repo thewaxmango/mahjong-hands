@@ -140,6 +140,8 @@ class Riichi(Event):
 
 class Agari(Data):
     def __init__(self):
+        self.round = ""
+        self.oya = 0
         self.type = "" # Either "RON" or "TSUMO"
         self.player = 0
         self.hand = tuple() # of Tile
@@ -154,6 +156,7 @@ class Agari(Data):
         self.fromPlayer = 0 # only meaningful if type == "RON"
         self.yaku = tuple() # of strings
         self.yakuman = tuple() # of strings
+        
 
 class Game(Data):
     RANKS = "新人,9級,8級,7級,6級,5級,4級,3級,2級,1級,初段,二段,三段,四段,五段,六段,七段,八段,九段,十段,天鳳位".split(",")
@@ -316,6 +319,10 @@ class Game(Data):
     def tagAGARI(self, tag, data, code, seed):
         agari = Agari()
         self.round.agari.append(agari)
+        
+        agari.round = self.round.round[0]
+        agari.oya = self.round.dealer
+        
         agari.type = "RON" if data["fromWho"] != data["who"] else "TSUMO"
         agari.player = int(data["who"])
         agari.hand = self.decodeList(data["hai"], Tile)
@@ -340,16 +347,15 @@ class Game(Data):
         if "yaku" in data:
             yakuList = self.decodeList(data["yaku"])
             agari.yaku = tuple(
-                (self.YAKU_NAMES[self.YAKU[yaku]][self.lang], han)
+                (yaku, han)
                 for yaku, han in zip(yakuList[::2], yakuList[1::2]))
         if "yakuman" in data:
             agari.yakuman = tuple(
-                self.YAKU_NAMES[self.YAKU[yaku]][self.lang]
-                for yaku in self.decodeList(data["yakuman"]))
+                yaku for yaku in self.decodeList(data["yakuman"]))
         if 'owari' in data:
             self.owari = data['owari']
     
-        with open(f"./agari_logs/{code}.txt", "a+") as file:
+        with open(f"../agari_logs/{code}.txt", "a+") as file:
             file.write(str(agari))
             file.write("\n")
             
@@ -394,7 +400,7 @@ class Game(Data):
         seed = "fake-seed"
         for event in events:
             if event.tag == "SHUFFLE":
-                with open(f"./agari_logs/{code}.txt", "a+") as file:
+                with open(f"../agari_logs/{code}.txt", "a+") as file:
                     file.write(event.attrib['seed'][29:])
                     file.write("\n")
             self.TAGS.get(event.tag, self.default)(self, event.tag, event.attrib, code, seed)

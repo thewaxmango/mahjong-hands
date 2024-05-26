@@ -1,5 +1,4 @@
 const exactTranslation = {
-
     // Yaku
 
     '流局滿貫': {
