@@ -25,8 +25,8 @@
                         <p class="jp">
                             <b><span id="round-wind">「東」East</span></b><br>
                             <b><span id="seat-wind">「西」West</span></b><br>
-                            <b><span id="win-by" hidden>「ロン」Tsumo</span></b>
-                            <b><span id="win-by">「ツモ」Tsumo</span></b>
+                            <b><span id="win-by-tsumo">「ツモ」Tsumo</span></b>
+                            <b><span id="win-by-ron" hidden>「ロン」Ron</span></b>
                         </p>
                     </div>
                     <div class="riichi-box">
@@ -76,75 +76,73 @@
                 </div>
 
                 <div class="dora">
-                    <div class="dora-indicator">
+                    <div id="dora-wall" class="dora-indicator">
                         <div class="title">
                             <p class="vertical jp">DORA</p>
                         </div>
                         <div class="divider short-divider"></div>
 
-                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" id="dora1" viewbox="0 0 64 84" width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
-                            <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Chun.svg"/>
-                            <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
-                        </svg>
-                        <svg class="tile-svg" id="dora2" viewbox="0 0 64 84" width="64" height="84">
+                        <svg id="dora0" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" id="dora3" viewbox="0 0 64 84" width="64" height="84">
+                        <svg id="dora1" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" id="dora4" viewbox="0 0 64 84" width="64" height="84">
+                        <svg id="dora2" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" id="dora5" viewbox="0 0 64 84" width="64" height="84">
+                        <svg id="dora3" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="dora4" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
                     </div>
 
-                    <div class="dora-indicator">
+                    <div id="uradora-wall" class="dora-indicator">
                         <div class="title">
                             <p class="vertical vertical-dense jp">URADORA</p>
                         </div>
                         <div class="divider short-divider"></div>
 
-                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
+                        <svg class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" id="ura1" viewbox="0 0 64 84" width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
-                            <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Ton.svg"/>
-                            <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
-                        </svg>
-                        <svg class="tile-svg" id="ura2" viewbox="0 0 64 84" width="64" height="84">
+                        <svg id="ura0" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" id="ura3" viewbox="0 0 64 84" width="64" height="84">
+                        <svg id="ura1" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" id="ura4" viewbox="0 0 64 84" width="64" height="84">
+                        <svg id="ura2" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" id="ura5" viewbox="0 0 64 84" width="64" height="84">
+                        <svg id="ura3" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="ura4" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
                             <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
                             <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
@@ -153,85 +151,132 @@
             </div>
             <hr class="header-hr">
 
-            <div class="hand-block">
-                <div class="hand-row">
+            <div id="hand-block" class="hand-block">
+                <div id="hand-row-main" class="hand-row">
                     <div class="title">
                         <p class="vertical jp">HAND</p>
                     </div>
                     <div class="divider"></div>
 
-                    <div class="hand">
-                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
-                            <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Man5.svg"/>
-                            <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                    <div id="hand" class="hand">
+                        <svg id="closed0" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="closed1" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="closed2" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="closed3" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="closed4" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="closed5" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="closed6" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="closed7" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="closed8" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="closed9" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="closed10" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="closed11" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="closed12" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
 
                         <div class="spacer"></div>
 
-                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
-                            <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Pin3.svg"/>
-                            <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        <svg id="open0" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
-                            <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Pin3.svg"/>
-                            <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        <svg id="open1" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" viewbox="0 0 84 64" width="84" height="64">
-                            <image transform="rotate(90 40 40)" x="2" y="-2" width="60" height="80" href="static/svgs/Front.png"></image>
-                            <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/svgs/Regular/Pin3.svg"></image>
-                            <rect class="tile-border" width="80" height="60" x="2" y="2" rx="6" style=""/>
+                        <svg id="open2" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
-                            <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Pin5.svg"/>
-                            <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        <svg id="open3" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
-                            <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Pin5.svg"/>
-                            <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        <svg id="open4" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" viewbox="0 0 84 64" width="84" height="64">
-                            <image transform="rotate(90 40 40)" x="2" y="-2" width="60" height="80" href="static/svgs/Front.png"></image>
-                            <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/svgs/Regular/Pin5.svg"></image>
-                            <rect class="tile-border" width="80" height="60" x="2" y="2" rx="6" style=""/>
+                        <svg id="open5" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
-                            <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Chun.svg"/>
-                            <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        <svg id="open6" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" viewbox="0 0 84 126" width="84" height="126">
-                            <image transform="rotate(90 10 70)" x="5" y="-2" width="60" height="80" href="static/svgs/Front.png"></image>
-                            <image transform="rotate(90 10 70)" x="11.5" y="8" width="45" height="60" href="static/svgs/Regular/Chun.svg"></image>
-                            <rect class="tile-border" width="80" height="60" x="2" y="64" rx="6"/>
-
-                            <image transform="rotate(90 40 40)" x="2" y="-2" width="60" height="80" href="static/svgs/Front.png"></image>
-                            <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/svgs/Regular/Chun.svg"></image>
-                            <rect class="tile-border" width="80" height="60" x="2" y="2" rx="6"/>
+                        <svg id="open7" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
-                            <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Chun.svg"/>
-                            <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        <svg id="open8" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
-                            <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Man6.svg"/>
-                            <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        <svg id="open9" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" viewbox="0 0 84 64" width="84" height="64">
-                            <image transform="rotate(90 40 40)" x="2" y="-2" width="60" height="80" href="static/svgs/Front.png"></image>
-                            <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/svgs/Regular/Man6.svg"></image>
-                            <rect class="tile-border" width="80" height="60" x="2" y="2" rx="6" style=""/>
+                        <svg id="open10" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
-                        <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
-                            <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
-                            <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Man6.svg"/>
-                            <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        <svg id="open11" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="open12" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="open13" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="open14" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
+                        </svg>
+                        <svg id="open15" class="tile-svg" viewBox="0 0 0 0" width="0" height="0">
+                            <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                         </svg>
 
                         <div class="spacer"></div>
@@ -240,15 +285,14 @@
                 </div>
                 <div class="hand-row">
                     <div class="title">
-                        <p class="vertical jp">TSUMO</p>
-                        <p class="vertical jp" hidden>RON</p>
+                        <p id="title-tsumo" class="vertical jp">TSUMO</p>
+                        <p id="title-ron" class="vertical jp" hidden>RON</p>
                     </div>
                     <div class="divider short-divider"></div>
 
-                    <svg class="tile-svg" viewbox="0 0 64 84" width="64" height="84">
-                        <image x="2" y="2" width="60" height="80" href="static/svgs/Front.png"/>
-                        <image x="9.5" y="12" width="45" height="60" href="static/svgs/Regular/Man5-Dora.svg"/>
-                        <rect class="tile-border" width="60" height="80" x="2" y="2" rx="6"/>
+                    <svg id="agari-tile" class="tile-svg" viewBox="0 0 64 84" width="64" height="84">
+                        <image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
+                            <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>
                     </svg>
                 </div>
             </div>
