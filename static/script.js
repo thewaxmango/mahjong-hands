@@ -559,7 +559,6 @@ function setDora(num_visible, dora) {
     }
 }
 function resetUradora() {
-    resetUradora();
     // reset
     for (let i = 0; i < 5; i++) {
         document.getElementById(`ura${i}`).innerHTML = TILE_BACK_HTML;
@@ -567,6 +566,7 @@ function resetUradora() {
     }
 }
 function setUradora(riichi, num_visible, uradora) {
+    resetUradora();
     // no ura if no riichi
     if (!riichi) {
         return
