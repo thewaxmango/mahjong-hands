@@ -80,7 +80,11 @@ WIN_ID = {s:i for i, s in enumerate(WINS)}
 
 WINDS = {"東": 0, "南": 1, "西": 2, "北": 3}
 
-def encode(agari, wall):
+def tile_to_id(s):
+    i = int(s[2])
+    return (TILE_ID[s[:2]] << 2) | i
+
+def encode(agari, wall, seed):
     agari = agari.replace("\'", "\"").replace("False", "\"False\"").replace("True", "\"True\"")
     data = loads(agari)
     
@@ -91,66 +95,110 @@ def encode(agari, wall):
     round_num = int(data["round"][1])
     seat_wind = (player - int(data["oya"]) + 4) % 4
     
+    machi = data['machi'][0]
+    machi_tile = tile_to_id(machi)
+    
     hand = []
     for tile in data["hand"]:
-        id = TILE_ID[tile[:2]]
-        idx = int(tile[2])
-        v = (id << 2) | idx
-        hand.append(v)
-    
-    machi = data['machi'][0]
-    machi_idx = int(machi[-1:])
-    machi_tile = TILE_ID[machi[:-1]] * 4 + machi_idx
-    
-    han = sum(yaku_pair[1] for yaku_pair in data["yaku"])
-    fu = data["fu"]
+        v = tile_to_id(tile)
+        if v != machi_tile:
+            hand.append(v)
     
     limit = LIMIT_ID[data["limit"]]
     yakuman = len(data["yakuman"])
     
     closed = ["False", "True"].index(data["closed"])
     
-    yaku = [(han << 6) | yaku_id for yaku_id, han in data["yaku"] if han > 0]
+    yaku = [0]*len(YAKU)
+    for yaku_id, han in data["yaku"]:
+        yaku[yaku_id] = han
     yakuman = data["yakuman"]
+    for v in yakuman:
+        yaku[v] = 13
     
+    han = min(14, sum(x for x in yaku))
+    fu = data["fu"]
+    
+    # BACK, REGULAR, HORIZ, HORIZ2, HIDE, HORIZ3
     melds = []
     for grp in data["melds"]:
         if grp["type"] == "pon":
-            pass
+            called_tile = tile_to_id(grp["tiles"].pop(grp["called"]))
+            for i in range(3, 0, -1):
+                if grp["fromPlayer"] == i:
+                    melds.append((called_tile, 2))
+                else:
+                    tile = tile_to_id(grp["tiles"].pop(0))
+                    melds.append((tile, 1))
+        
         elif grp["type"] == "chakan":
             #daiminkan
-            pass
+            called_tile = tile_to_id(grp["tiles"].pop(grp["called"]))
+            if grp["fromPlayer"] != 1:
+                grp["fromPlayer"] += 1
+            for i in range(4, 0, -1):
+                if grp["fromPlayer"] == i:
+                    melds.append((called_tile, 2))
+                else:
+                    tile = tile_to_id(grp["tiles"].pop(0))
+                    melds.append((tile, 1))
+        
         elif grp["type"] == "kan":
             if "fromPlayer" in grp:
                 #shouminkan
-                pass
+                called_tile = tile_to_id(grp["tiles"].pop(grp["called"]))
+                stacked_tile = tile_to_id(grp["tiles"].pop())
+                style = 5 if (stacked_tile & 3) == 0 else 3
+                for i in range(3, 0, -1):
+                    if grp["fromPlayer"] == i:
+                        melds.append((called_tile, style))
+                    else:
+                        tile = tile_to_id(grp["tiles"].pop(0))
+                        melds.append((tile, 1))
             else:
                 #ankan
-                pass
-        elif grp["type"] == "chi":
-            pass
-    
-    doras = wall[6:16:2]
-    uradoras = wall[5:15:2]
+                tile = tile_to_id(grp["tiles"].pop(0))
+                melds.append((tile, 0))
+                tile = tile_to_id(grp["tiles"].pop(0))
+                melds.append((tile, 1))
+                tile = tile_to_id(grp["tiles"].pop(0))
+                melds.append((tile, 1))
+                tile = tile_to_id(grp["tiles"].pop(0))
+                melds.append((tile, 0))
         
-    print(win, player, round_wind, seat_wind, han, fu, limit, yakuman, machi_tile, doras, uradoras, hand, sep="  | ")
+        elif grp["type"] == "chi":
+            called_tile = tile_to_id(grp["tiles"].pop(grp["called"]))
+            for i in range(3, 0, -1):
+                if grp["fromPlayer"] == i:
+                    melds.append((called_tile, 2))
+                else:
+                    tile = tile_to_id(grp["tiles"].pop(0))
+                    melds.append((tile, 1))
+    
+    doras = wall[6:16:2][:len(data["dora"])]
+    uradoras = wall[5:15:2][:len(data["dora"])]
+
+    targ_seed = ""
+    if seed == targ_seed:
+        print(win, round_wind, seat_wind, han, fu, limit, machi_tile, doras, uradoras, hand, melds, sep="  | ")
     # necessary data: roundwind, seatwind, win by, dora, uradora, yaku, score(hanfu/limit), handshape
     
 # keys: *round, *oya, *type, *player, *hand, *fu, *points, *limit, *dora, *machi, melds, *closed, *uradora, -fromplayer, *yaku, *yakuman
 # shouminkan, ankan under kan (ankan if not has fromPlayer); daiminkan under chakan
 
 def main():
-    for i, f in enumerate(FILES[:1]):        
+    print(len(FILES))
+    for i, f in enumerate(FILES):    
         lines = []
         with open(join(PATH, f), "r") as file:
             for line in file:
                 lines.append(line.strip())
                 
-        print("WN | PL | RO | SE | HN | FU | LM | YA | MA | DO | UR | TILES")
+        #print("WN | RO | SE | HN | FU | LM | MA | DO | UR | TILES")
         
         walls = reproduce(lines[0], len(lines) - 1)
         for i in range(len(lines) - 1):
-            encode(lines[i+1], walls[i][0])
+            encode(lines[i+1], walls[i][0], lines[0])
             
         if not (i+1)%250:
             print(f"{i+1}/{TOTAL_FILES} complete")

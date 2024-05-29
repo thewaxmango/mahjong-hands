@@ -15,6 +15,12 @@
     
     <body>
         <div class="container">
+            <div class="nav">
+                <button class="nav-button jp l" style="width: 120px;" onclick="showYaku();">Reveal Yaku</button>
+                <button class="nav-button jp l" style="width: 145px;" onclick="showYaku(); showScore()">Reveal Solution</button>
+                <button class="nav-button jp r" style="width: 120px;" onclick="newPuzzle();">Next Puzzle</button>
+            </div>
+
             <div class="header">
                 <div class="header-left">
                     <div class="header-text">
@@ -24,18 +30,18 @@
                         <div class="spacer"></div>
                         <p class="jp">
                             <b><span id="round-wind">「東」East</span></b><br>
-                            <b><span id="seat-wind">「西」West</span></b><br>
+                            <b><span id="seat-wind">「東」East</span></b><br>
                             <b><span id="win-by-tsumo">「ツモ」Tsumo</span></b>
                             <b><span id="win-by-ron" hidden>「ロン」Ron</span></b>
                         </p>
                     </div>
                     <div class="riichi-box">
-                        <div class="riichi-gray">•</div>
-                        <div class="yaku-gray justified jp">
+                        <div id="riichi-stick" class="riichi-gray">•</div>
+                        <div id="yaku1" class="yaku-gray justified jp">
                             <span class="r">「立直」</span>
                             <span class="l">&nbsp;&nbsp;RIICHI&nbsp;&nbsp;</span>
                         </div>
-                        <div class="yaku-gray justified jp">
+                        <div id="yaku2" class="yaku-gray justified jp">
                             <span class="r">「一発」</span>
                             <span class="l">&nbsp;&nbsp;IPPATSU&nbsp;&nbsp;</span>
                         </div>   
@@ -44,31 +50,31 @@
 
                 <div class="header-center">
                     <div class="riichi-box">
-                        <div class="yaku-gray justified jp">
+                        <div id="yaku21" class="yaku-gray justified jp">
                             <span class="r">「両立直」</span>
                             <span class="l">&nbsp;&nbsp;DOUBLE RIICHI&nbsp;&nbsp;</span>
                         </div>   
-                        <div class="yaku-gray justified jp">
+                        <div id="yaku4" class="yaku-gray justified jp">
                             <span class="r">「嶺上開花」</span>
                             <span class="l">&nbsp;&nbsp;RINSHAN KAIHOU&nbsp;&nbsp;</span>
                         </div>
-                        <div class="yaku-gray justified jp">
+                        <div id="yaku3" class="yaku-gray justified jp">
                             <span class="r">「搶槓」</span>
                             <span class="l">&nbsp;&nbsp;CHANKAN&nbsp;&nbsp;</span>
                         </div>
-                        <div class="yaku-gray justified jp">
+                        <div id="yaku5" class="yaku-gray justified jp">
                             <span class="r">「海底撈月」</span>
                             <span class="l">&nbsp;&nbsp;HAITEI RAOYUE&nbsp;&nbsp;</span>
                         </div>
-                        <div class="yaku-gray justified jp">
+                        <div id="yaku6" class="yaku-gray justified jp">
                             <span class="r">「河底撈魚」</span>
                             <span class="l">&nbsp;&nbsp;HOUTEI RAOYUI&nbsp;&nbsp;</span>
                         </div>
-                        <div class="yaku-gray justified jp">
+                        <div id="yaku38" class="yaku-gray justified jp">
                             <span class="r">「地和」</span>
                             <span class="l">&nbsp;&nbsp;CHIIHOU&nbsp;&nbsp;</span>
                         </div>
-                        <div class="yaku-gray justified jp">
+                        <div id="yaku37" class="yaku-gray justified jp">
                             <span class="r">「天和」</span>
                             <span class="l">&nbsp;&nbsp;TENHOU&nbsp;&nbsp;</span>
                         </div>
@@ -393,276 +399,291 @@
                 <div id="overlay-dr" class="overlay">
                     <div id="chart-dr" class="score-chart">
                         <div class="chart-cell"><p class="chart-label jp">「符」FU&nbsp;&nbsp;</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">20 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">25 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">30 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">40 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">50 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">60 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">70 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">80 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">90 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">100 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">110 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">20 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">25 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">30 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">40 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">50 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">60 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">70 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">80 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">90 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">100 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">110 FU</p></div>
 
                         <div class="chart-cell"><p class="chart-label jp">1 HAN</p></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <button id="1h30f-dr" class="chart-button han-blue jp">1500</button>
-                        <button id="1h40f-dr" class="chart-button han-blue jp">2000</button>
-                        <button id="1h50f-dr" class="chart-button han-blue jp">2400</button>
-                        <button id="1h60f-dr" class="chart-button han-blue jp">2900</button>
-                        <button id="1h70f-dr" class="chart-button han-blue jp">3400</button>
-                        <button id="1h80f-dr" class="chart-button han-blue jp">3900</button>
-                        <button id="1h90f-dr" class="chart-button han-blue jp">4400</button>
-                        <button id="1h100f-dr" class="chart-button han-blue jp">4800</button>
-                        <button id="1h110f-dr" class="chart-button han-blue jp">5300</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <button id="1h30f-dr" class="chart-button narrow-cell han-blue jp">1500</button>
+                        <button id="1h40f-dr" class="chart-button narrow-cell han-blue jp">2000</button>
+                        <button id="1h50f-dr" class="chart-button narrow-cell han-blue jp">2400</button>
+                        <button id="1h60f-dr" class="chart-button narrow-cell han-blue jp">2900</button>
+                        <button id="1h70f-dr" class="chart-button narrow-cell han-blue jp">3400</button>
+                        <button id="1h80f-dr" class="chart-button narrow-cell han-blue jp">3900</button>
+                        <button id="1h90f-dr" class="chart-button narrow-cell han-blue jp">4400</button>
+                        <button id="1h100f-dr" class="chart-button narrow-cell han-blue jp">4800</button>
+                        <button id="1h110f-dr" class="chart-button narrow-cell han-blue jp">5300</button>
 
                         <div class="chart-cell"><p class="chart-label jp">2 HAN</p></div>
-                        <div class="chart-cell"></div>
-                        <button id="2h25f-dr" class="chart-button han-blue jp">2400</button>
-                        <button id="2h30f-dr" class="chart-button han-blue jp">2900</button>
-                        <button id="2h40f-dr" class="chart-button han-blue jp">3900</button>
-                        <button id="2h50f-dr" class="chart-button han-blue jp">4800</button>
-                        <button id="2h60f-dr" class="chart-button han-blue jp">5800</button>
-                        <button id="2h70f-dr" class="chart-button han-blue jp">6800</button>
-                        <button id="2h80f-dr" class="chart-button han-blue jp">7700</button>
-                        <button id="2h90f-dr" class="chart-button han-blue jp">8700</button>
-                        <button id="2h100f-dr" class="chart-button han-blue jp">9600</button>
-                        <button id="2h110f-dr" class="chart-button han-blue jp">10600</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <button id="2h25f-dr" class="chart-button narrow-cell han-blue jp">2400</button>
+                        <button id="2h30f-dr" class="chart-button narrow-cell han-blue jp">2900</button>
+                        <button id="2h40f-dr" class="chart-button narrow-cell han-blue jp">3900</button>
+                        <button id="2h50f-dr" class="chart-button narrow-cell han-blue jp">4800</button>
+                        <button id="2h60f-dr" class="chart-button narrow-cell han-blue jp">5800</button>
+                        <button id="2h70f-dr" class="chart-button narrow-cell han-blue jp">6800</button>
+                        <button id="2h80f-dr" class="chart-button narrow-cell han-blue jp">7700</button>
+                        <button id="2h90f-dr" class="chart-button narrow-cell han-blue jp">8700</button>
+                        <button id="2h100f-dr" class="chart-button narrow-cell han-blue jp">9600</button>
+                        <button id="2h110f-dr" class="chart-button narrow-cell han-blue jp">10600</button>
 
                         <div class="chart-cell"><p class="chart-label jp">3 HAN</p></div>
-                        <div class="chart-cell"></div>
-                        <button id="3h25f-dr" class="chart-button han-blue jp">4800</button>
-                        <button id="3h30f-dr" class="chart-button han-blue jp">5800</button>
-                        <button id="3h40f-dr" class="chart-button han-blue jp">7700</button>
-                        <button id="3h50f-dr" class="chart-button han-blue jp">9600</button>
-                        <button id="3h60f-dr" class="chart-button han-blue jp">11600</button>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <button id="3h25f-dr" class="chart-button narrow-cell han-blue jp">4800</button>
+                        <button id="3h30f-dr" class="chart-button narrow-cell han-blue jp">5800</button>
+                        <button id="3h40f-dr" class="chart-button narrow-cell han-blue jp">7700</button>
+                        <button id="3h50f-dr" class="chart-button narrow-cell han-blue jp">9600</button>
+                        <button id="3h60f-dr" class="chart-button narrow-cell han-blue jp">11600</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
 
                         <div class="chart-cell"><p class="chart-label jp">4 HAN</p></div>
-                        <div class="chart-cell"></div>
-                        <button id="4h25f-dr" class="chart-button han-blue jp">9600</button>
-                        <button id="4h30f-dr" class="chart-button han-blue jp">11600</button>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <button id="4h25f-dr" class="chart-button narrow-cell han-blue jp">9600</button>
+                        <button id="4h30f-dr" class="chart-button narrow-cell han-blue jp">11600</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
                     </div>
                 </div>
                 <div id="overlay-dts" class="overlay">
                     <div id="chart-dts" class="score-chart">
                         <div class="chart-cell"><p class="chart-label jp">「符」FU&nbsp;&nbsp;</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">20 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">25 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">30 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">40 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">50 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">60 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">70 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">80 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">90 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">100 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">110 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">20 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">25 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">30 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">40 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">50 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">60 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">70 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">80 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">90 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">100 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">110 FU</p></div>
 
                         <div class="chart-cell"><p class="chart-label jp">1 HAN</p></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <button id="1h30f-dts" class="chart-button han-blue jp">∀500</button>
-                        <button id="1h40f-dts" class="chart-button han-blue jp">∀700</button>
-                        <button id="1h50f-dts" class="chart-button han-blue jp">∀800</button>
-                        <button id="1h60f-dts" class="chart-button han-blue jp">∀1000</button>
-                        <button id="1h70f-dts" class="chart-button han-blue jp">∀1200</button>
-                        <button id="1h80f-dts" class="chart-button han-blue jp">∀1300</button>
-                        <button id="1h90f-dts" class="chart-button han-blue jp">∀1500</button>
-                        <button id="1h100f-dts" class="chart-button han-blue jp">∀1600</button>
-                        <button id="1h110f-dts" class="chart-button han-blue jp">∀1800</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <button id="1h30f-dts" class="chart-button narrow-cell han-blue jp">∀500</button>
+                        <button id="1h40f-dts" class="chart-button narrow-cell han-blue jp">∀700</button>
+                        <button id="1h50f-dts" class="chart-button narrow-cell han-blue jp">∀800</button>
+                        <button id="1h60f-dts" class="chart-button narrow-cell han-blue jp">∀1000</button>
+                        <button id="1h70f-dts" class="chart-button narrow-cell han-blue jp">∀1200</button>
+                        <button id="1h80f-dts" class="chart-button narrow-cell han-blue jp">∀1300</button>
+                        <button id="1h90f-dts" class="chart-button narrow-cell han-blue jp">∀1500</button>
+                        <button id="1h100f-dts" class="chart-button narrow-cell han-blue jp">∀1600</button>
+                        <button id="1h110f-dts" class="chart-button narrow-cell han-blue jp">∀1800</button>
 
                         <div class="chart-cell"><p class="chart-label jp">2 HAN</p></div>
-                        <button id="2h20f-dts" class="chart-button han-blue jp">∀700</button>
-                        <div class="chart-cell"></div>
-                        <button id="2h30f-dts" class="chart-button han-blue jp">∀1000</button>
-                        <button id="2h40f-dts" class="chart-button han-blue jp">∀1300</button>
-                        <button id="2h50f-dts" class="chart-button han-blue jp">∀1600</button>
-                        <button id="2h60f-dts" class="chart-button han-blue jp">∀2000</button>
-                        <button id="2h70f-dts" class="chart-button han-blue jp">∀2300</button>
-                        <button id="2h80f-dts" class="chart-button han-blue jp">∀2600</button>
-                        <button id="2h90f-dts" class="chart-button han-blue jp">∀2900</button>
-                        <button id="2h100f-dts" class="chart-button han-blue jp">∀3200</button>
-                        <button id="2h110f-dts" class="chart-button han-blue jp">∀3600</button>
+                        <button id="2h20f-dts" class="chart-button narrow-cell han-blue jp">∀700</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <button id="2h30f-dts" class="chart-button narrow-cell han-blue jp">∀1000</button>
+                        <button id="2h40f-dts" class="chart-button narrow-cell han-blue jp">∀1300</button>
+                        <button id="2h50f-dts" class="chart-button narrow-cell han-blue jp">∀1600</button>
+                        <button id="2h60f-dts" class="chart-button narrow-cell han-blue jp">∀2000</button>
+                        <button id="2h70f-dts" class="chart-button narrow-cell han-blue jp">∀2300</button>
+                        <button id="2h80f-dts" class="chart-button narrow-cell han-blue jp">∀2600</button>
+                        <button id="2h90f-dts" class="chart-button narrow-cell han-blue jp">∀2900</button>
+                        <button id="2h100f-dts" class="chart-button narrow-cell han-blue jp">∀3200</button>
+                        <button id="2h110f-dts" class="chart-button narrow-cell han-blue jp">∀3600</button>
 
                         <div class="chart-cell"><p class="chart-label jp">3 HAN</p></div>
-                        <button id="3h20f-dts" class="chart-button han-blue jp">∀1300</button>
-                        <button id="3h25f-dts" class="chart-button han-blue jp">∀1600</button>
-                        <button id="3h30f-dts" class="chart-button han-blue jp">∀2000</button>
-                        <button id="3h40f-dts" class="chart-button han-blue jp">∀2600</button>
-                        <button id="3h50f-dts" class="chart-button han-blue jp">∀3200</button>
-                        <button id="3h60f-dts" class="chart-button han-blue jp">∀3900</button>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
+                        <button id="3h20f-dts" class="chart-button narrow-cell han-blue jp">∀1300</button>
+                        <button id="3h25f-dts" class="chart-button narrow-cell han-blue jp">∀1600</button>
+                        <button id="3h30f-dts" class="chart-button narrow-cell han-blue jp">∀2000</button>
+                        <button id="3h40f-dts" class="chart-button narrow-cell han-blue jp">∀2600</button>
+                        <button id="3h50f-dts" class="chart-button narrow-cell han-blue jp">∀3200</button>
+                        <button id="3h60f-dts" class="chart-button narrow-cell han-blue jp">∀3900</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
 
                         <div class="chart-cell"><p class="chart-label jp">4 HAN</p></div>
-                        <button id="4h20f-dts" class="chart-button han-blue jp">∀2600</button>
-                        <button id="4h25f-dts" class="chart-button han-blue jp">∀3200</button>
-                        <button id="4h30f-dts" class="chart-button han-blue jp">∀3900</button>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
+                        <button id="4h20f-dts" class="chart-button narrow-cell han-blue jp">∀2600</button>
+                        <button id="4h25f-dts" class="chart-button narrow-cell han-blue jp">∀3200</button>
+                        <button id="4h30f-dts" class="chart-button narrow-cell han-blue jp">∀3900</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
                     </div>
                 </div>
                 <div id="overlay-ndr" class="overlay">
                     <div id="chart-ndr" class="score-chart">
                         <div class="chart-cell"><p class="chart-label jp">「符」FU&nbsp;&nbsp;</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">20 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">25 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">30 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">40 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">50 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">60 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">70 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">80 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">90 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">100 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">110 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">20 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">25 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">30 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">40 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">50 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">60 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">70 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">80 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">90 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">100 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">110 FU</p></div>
 
                         <div class="chart-cell"><p class="chart-label jp">1 HAN</p></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <button id="1h30f-ndr" class="chart-button han-blue jp">1000</button>
-                        <button id="1h40f-ndr" class="chart-button han-blue jp">1300</button>
-                        <button id="1h50f-ndr" class="chart-button han-blue jp">1600</button>
-                        <button id="1h60f-ndr" class="chart-button han-blue jp">2000</button>
-                        <button id="1h70f-ndr" class="chart-button han-blue jp">2300</button>
-                        <button id="1h80f-ndr" class="chart-button han-blue jp">2600</button>
-                        <button id="1h90f-ndr" class="chart-button han-blue jp">2900</button>
-                        <button id="1h100f-ndr" class="chart-button han-blue jp">3200</button>
-                        <button id="1h110f-ndr" class="chart-button han-blue jp">3600</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <button id="1h30f-ndr" class="chart-button narrow-cell han-blue jp">1000</button>
+                        <button id="1h40f-ndr" class="chart-button narrow-cell han-blue jp">1300</button>
+                        <button id="1h50f-ndr" class="chart-button narrow-cell han-blue jp">1600</button>
+                        <button id="1h60f-ndr" class="chart-button narrow-cell han-blue jp">2000</button>
+                        <button id="1h70f-ndr" class="chart-button narrow-cell han-blue jp">2300</button>
+                        <button id="1h80f-ndr" class="chart-button narrow-cell han-blue jp">2600</button>
+                        <button id="1h90f-ndr" class="chart-button narrow-cell han-blue jp">2900</button>
+                        <button id="1h100f-ndr" class="chart-button narrow-cell han-blue jp">3200</button>
+                        <button id="1h110f-ndr" class="chart-button narrow-cell han-blue jp">3600</button>
 
                         <div class="chart-cell"><p class="chart-label jp">2 HAN</p></div>
-                        <div class="chart-cell"></div>
-                        <button id="2h25f-ndr" class="chart-button han-blue jp">1600</button>
-                        <button id="2h30f-ndr" class="chart-button han-blue jp">2000</button>
-                        <button id="2h40f-ndr" class="chart-button han-blue jp">2600</button>
-                        <button id="2h50f-ndr" class="chart-button han-blue jp">3200</button>
-                        <button id="2h60f-ndr" class="chart-button han-blue jp">3900</button>
-                        <button id="2h70f-ndr" class="chart-button han-blue jp">4500</button>
-                        <button id="2h80f-ndr" class="chart-button han-blue jp">5200</button>
-                        <button id="2h90f-ndr" class="chart-button han-blue jp">5800</button>
-                        <button id="2h100f-ndr" class="chart-button han-blue jp">6400</button>
-                        <button id="2h110f-ndr" class="chart-button han-blue jp">7100</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <button id="2h25f-ndr" class="chart-button narrow-cell han-blue jp">1600</button>
+                        <button id="2h30f-ndr" class="chart-button narrow-cell han-blue jp">2000</button>
+                        <button id="2h40f-ndr" class="chart-button narrow-cell han-blue jp">2600</button>
+                        <button id="2h50f-ndr" class="chart-button narrow-cell han-blue jp">3200</button>
+                        <button id="2h60f-ndr" class="chart-button narrow-cell han-blue jp">3900</button>
+                        <button id="2h70f-ndr" class="chart-button narrow-cell han-blue jp">4500</button>
+                        <button id="2h80f-ndr" class="chart-button narrow-cell han-blue jp">5200</button>
+                        <button id="2h90f-ndr" class="chart-button narrow-cell han-blue jp">5800</button>
+                        <button id="2h100f-ndr" class="chart-button narrow-cell han-blue jp">6400</button>
+                        <button id="2h110f-ndr" class="chart-button narrow-cell han-blue jp">7100</button>
 
                         <div class="chart-cell"><p class="chart-label jp">3 HAN</p></div>
-                        <div class="chart-cell"></div>
-                        <button id="3h25f-ndr" class="chart-button han-blue jp">3200</button>
-                        <button id="3h30f-ndr" class="chart-button han-blue jp">3900</button>
-                        <button id="3h40f-ndr" class="chart-button han-blue jp">5200</button>
-                        <button id="3h50f-ndr" class="chart-button han-blue jp">6400</button>
-                        <button id="3h60f-ndr" class="chart-button han-blue jp">7700</button>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <button id="3h25f-ndr" class="chart-button narrow-cell han-blue jp">3200</button>
+                        <button id="3h30f-ndr" class="chart-button narrow-cell han-blue jp">3900</button>
+                        <button id="3h40f-ndr" class="chart-button narrow-cell han-blue jp">5200</button>
+                        <button id="3h50f-ndr" class="chart-button narrow-cell han-blue jp">6400</button>
+                        <button id="3h60f-ndr" class="chart-button narrow-cell han-blue jp">7700</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
 
                         <div class="chart-cell"><p class="chart-label jp">4 HAN</p></div>
-                        <div class="chart-cell"></div>
-                        <button id="4h25f-ndr" class="chart-button han-blue jp">6400</button>
-                        <button id="4h30f-ndr" class="chart-button han-blue jp">7700</button>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <button id="4h25f-ndr" class="chart-button narrow-cell han-blue jp">6400</button>
+                        <button id="4h30f-ndr" class="chart-button narrow-cell han-blue jp">7700</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
                     </div>
                 </div>
                 <div id="overlay-ndts" class="overlay">
                     <div id="chart-ndts" class="score-chart">
                         <div class="chart-cell"><p class="chart-label jp">「符」FU&nbsp;&nbsp;</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">20 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">25 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">30 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">40 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">50 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">60 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">70 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">80 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">90 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">100 FU</p></div>
-                        <div class="chart-cell"><p class="chart-label jp">110 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">20 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">25 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">30 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">40 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">50 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">60 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">70 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">80 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">90 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">100 FU</p></div>
+                        <div class="chart-cell narrow-cell"><p class="chart-label jp">110 FU</p></div>
 
                         <div class="chart-cell"><p class="chart-label jp">1 HAN</p></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <button id="1h30f-ndts" class="chart-button han-blue jp">500/300</button>
-                        <button id="1h40f-ndts" class="chart-button han-blue jp">700/400</button>
-                        <button id="1h50f-ndts" class="chart-button han-blue jp">800/400</button>
-                        <button id="1h60f-ndts" class="chart-button han-blue jp">1000/500</button>
-                        <button id="1h70f-ndts" class="chart-button han-blue jp">1200/600</button>
-                        <button id="1h80f-ndts" class="chart-button han-blue jp">1300/700</button>
-                        <button id="1h90f-ndts" class="chart-button han-blue jp">1500/800</button>
-                        <button id="1h100f-ndts" class="chart-button han-blue jp">1600/800</button>
-                        <button id="1h110f-ndts" class="chart-button han-blue jp">1800/900</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <button id="1h30f-ndts narrow-cell" class="chart-button narrow-cell han-blue jp">500/300</button>
+                        <button id="1h40f-ndts" class="chart-button narrow-cell han-blue jp">700/400</button>
+                        <button id="1h50f-ndts" class="chart-button narrow-cell han-blue jp">800/400</button>
+                        <button id="1h60f-ndts" class="chart-button narrow-cell han-blue jp">1000/500</button>
+                        <button id="1h70f-ndts" class="chart-button narrow-cell han-blue jp">1200/600</button>
+                        <button id="1h80f-ndts" class="chart-button narrow-cell han-blue jp">1300/700</button>
+                        <button id="1h90f-ndts" class="chart-button narrow-cell han-blue jp">1500/800</button>
+                        <button id="1h100f-ndts" class="chart-button narrow-cell han-blue jp">1600/800</button>
+                        <button id="1h110f-ndts" class="chart-button narrow-cell han-blue jp">1800/900</button>
 
                         <div class="chart-cell"><p class="chart-label jp">2 HAN</p></div>
-                        <button id="2h20f-ndts" class="chart-button han-blue jp">700/400</button>
-                        <div class="chart-cell"></div>
-                        <button id="2h30f-ndts" class="chart-button han-blue jp">1000/500</button>
-                        <button id="2h40f-ndts" class="chart-button han-blue jp">1300/700</button>
-                        <button id="2h50f-ndts" class="chart-button han-blue jp">1600/800</button>
-                        <button id="2h60f-ndts" class="chart-button han-blue jp">2000/1000</button>
-                        <button id="2h70f-ndts" class="chart-button han-blue jp">2300/1200</button>
-                        <button id="2h80f-ndts" class="chart-button han-blue jp">2600/1300</button>
-                        <button id="2h90f-ndts" class="chart-button han-blue jp">2900/1500</button>
-                        <button id="2h100f-ndts" class="chart-button han-blue jp">3200/1600</button>
-                        <button id="2h110f-ndts" class="chart-button han-blue jp">3600/1800</button>
+                        <button id="2h20f-ndts" class="chart-button narrow-cell han-blue jp">700/400</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <button id="2h30f-ndts" class="chart-button narrow-cell han-blue jp">1000/500</button>
+                        <button id="2h40f-ndts" class="chart-button narrow-cell han-blue jp">1300/700</button>
+                        <button id="2h50f-ndts" class="chart-button narrow-cell han-blue jp">1600/800</button>
+                        <button id="2h60f-ndts" class="chart-button narrow-cell han-blue jp">2000/1000</button>
+                        <button id="2h70f-ndts" class="chart-button narrow-cell han-blue jp">2300/1200</button>
+                        <button id="2h80f-ndts" class="chart-button narrow-cell han-blue jp">2600/1300</button>
+                        <button id="2h90f-ndts" class="chart-button narrow-cell han-blue jp">2900/1500</button>
+                        <button id="2h100f-ndts" class="chart-button narrow-cell han-blue jp">3200/1600</button>
+                        <button id="2h110f-ndts" class="chart-button narrow-cell han-blue jp">3600/1800</button>
 
                         <div class="chart-cell"><p class="chart-label jp">3 HAN</p></div>
-                        <button id="3h20f-ndts" class="chart-button han-blue jp">1300/700</button>
-                        <button id="3h25f-ndts" class="chart-button han-blue jp">1600/800</button>
-                        <button id="3h30f-ndts" class="chart-button han-blue jp">2000/1000</button>
-                        <button id="3h40f-ndts" class="chart-button han-blue jp">2600/1300</button>
-                        <button id="3h50f-ndts" class="chart-button han-blue jp">3200/1600</button>
-                        <button id="3h60f-ndts" class="chart-button han-blue jp">3900/2000</button>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
+                        <button id="3h20f-ndts" class="chart-button narrow-cell han-blue jp">1300/700</button>
+                        <button id="3h25f-ndts" class="chart-button narrow-cell han-blue jp">1600/800</button>
+                        <button id="3h30f-ndts" class="chart-button narrow-cell han-blue jp">2000/1000</button>
+                        <button id="3h40f-ndts" class="chart-button narrow-cell han-blue jp">2600/1300</button>
+                        <button id="3h50f-ndts" class="chart-button narrow-cell han-blue jp">3200/1600</button>
+                        <button id="3h60f-ndts" class="chart-button narrow-cell han-blue jp">3900/2000</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
 
                         <div class="chart-cell"><p class="chart-label jp">4 HAN</p></div>
-                        <button id="4h20f-ndts" class="chart-button han-blue jp">2600/1300</button>
-                        <button id="4h25f-ndts" class="chart-button han-blue jp">3200/1600</button>
-                        <button id="4h30f-ndts" class="chart-button han-blue jp">3900/2000</button>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
-                        <div class="chart-cell"></div>
+                        <button id="4h20f-ndts" class="chart-button narrow-cell han-blue jp">2600/1300</button>
+                        <button id="4h25f-ndts" class="chart-button narrow-cell han-blue jp">3200/1600</button>
+                        <button id="4h30f-ndts" class="chart-button narrow-cell han-blue jp">3900/2000</button>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
+                        <div class="chart-cell narrow-cell"></div>
                     </div>
                 </div>
             </div>
+
+            <p class="jp">
+                <span id="yaku-row" class="jp" hidden>
+                    <b>YAKU:</b> 
+                    <span id="yaku-text">no yaku!</span>
+                </span><br>
+                
+                <span id="score-row" class="jp" hidden>
+                    <b>SCORE:</b> 
+                    <span id="score-text" hidden>no score!</span>
+                    <span id="score-breakdown">
+                        <span id="han-text">0</span> han, <span id="fu-text">0</span> fu
+                    </span>
+                </span> 
+            </p>
         </div>
 
         <script src="{{ url_for('static', filename='script.js') }}"></script>

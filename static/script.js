@@ -1,165 +1,33 @@
-function hasClass(el, className) {
-    if (el.classList)
-        return el.classList.contains(className);
-    return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
-}
-function addClass(el, className) {
-    if (el.classList)
-        el.classList.add(className)
-    else if (!hasClass(el, className))
-        el.className += " " + className;
-}
-function removeClass(el, className) {
-    if (el.classList)
-        el.classList.remove(className)
-    else if (hasClass(el, className)) {
-        var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
-        el.className = el.className.replace(reg, ' ');
-    }
-}
-
-const han_types = [ 
-    {"type": "1han", "n": 1}, 
-    {"type": "2han", "n": 2}, 
-    {"type": "3han", "n": 3}, 
-    {"type": "4han", "n": 4}, 
-    {"type": "5han", "n": 5}, 
-    {"type": "6han", "n": 6}, 
-    {"type": "7han", "n": 7}, 
-    {"type": "8han", "n": 8}, 
-    {"type": "9han", "n": 9}, 
-    {"type": "10han", "n": 10}, 
-    {"type": "11han", "n": 11}, 
-    {"type": "12han", "n": 12}, 
-    {"type": "13han", "n": 13}, 
+const HAN_TYPES = [
+    {"type": "1han", "n": 1},
+    {"type": "2han", "n": 2},
+    {"type": "3han", "n": 3},
+    {"type": "4han", "n": 4},
+    {"type": "5han", "n": 5},
+    {"type": "6han", "n": 6},
+    {"type": "7han", "n": 7},
+    {"type": "8han", "n": 8},
+    {"type": "9han", "n": 9},
+    {"type": "10han", "n": 10},
+    {"type": "11han", "n": 11},
+    {"type": "12han", "n": 12},
+    {"type": "13han", "n": 13},
 ];
-const table_types = ["dr", "dts", "ndr", "ndts"];
-const score_types = ["1h20f", "1h25f", "1h30f", "1h40f", "1h50f", "1h60f", "1h70f", "1h80f", "1h90f", "1h100f", "1h110f", "2h20f", "2h25f", "2h30f", "2h40f", "2h50f", "2h60f", "2h70f", "2h80f", "2h90f", "2h100f", "2h110f", "3h20f", "3h25f", "3h30f", "3h40f", "3h50f", "3h60f", "3h70f", "3h80f", "3h90f", "3h100f", "3h110f", "4h20f", "4h25f", "4h30f", "4h40f", "4h50f", "4h60f", "4h70f", "4h80f", "4h90f", "4h100f", "4h110f", "mangan", "haneman", "baiman", "sanbaiman", "yakuman"];
-const special_score_types = new Set(["mangan", "haneman", "baiman", "sanbaiman", "yakuman"]);
+const TABLE_TYPES = ["dr", "dts", "ndr", "ndts"];
+const SCORE_TYPES = ["1h20f", "1h25f", "1h30f", "1h40f", "1h50f", "1h60f", "1h70f", "1h80f", "1h90f", "1h100f", "1h110f", "2h20f", "2h25f", "2h30f", "2h40f", "2h50f", "2h60f", "2h70f", "2h80f", "2h90f", "2h100f", "2h110f", "3h20f", "3h25f", "3h30f", "3h40f", "3h50f", "3h60f", "3h70f", "3h80f", "3h90f", "3h100f", "3h110f", "4h20f", "4h25f", "4h30f", "4h40f", "4h50f", "4h60f", "4h70f", "4h80f", "4h90f", "4h100f", "4h110f", "mangan", "haneman", "baiman", "sanbaiman", "yakuman"];
+const SPECIAL_SCORE_TYPES = [
+    {}, 
+    {"jp": "満貫", "en": "mangan"},
+    {"jp": "跳満", "en": "haneman"}, 
+    {"jp": "倍満", "en": "baiman"}, 
+    {"jp": "三倍満", "en": "sanbaiman"}, 
+    {"jp": "役満", "en": "yakuman"}
+];
+const SPECIAL_SCORE_SET = new Set(["mangan", "haneman", "baiman", "sanbaiman", "yakuman"]);
 
 let han_buttons = {};
 let score_buttons = {"dr": {}, "dts": {}, "ndr": {}, "ndts": {},};
 let table_elements = {"dr": {}, "dts": {}, "ndr": {}, "ndts": {},};
-
-function getHanButtons() {
-    for (let i = 0; i < han_types.length; i++) {
-        let han_type = han_types[i]["type"];
-        let han_button = document.getElementById(han_type);
-        han_buttons[han_type] = han_button;
-    }
-}
-function getScoreButtons() {
-    for (let i = 0; i < table_types.length; i++) {
-        let table_type = table_types[i];
-        for (let j = 0; j < score_types.length; j++) {
-            let score_type = score_types[j];
-            if (document.getElementById(score_type + "-" + table_type) != null) {
-                score_buttons[table_type][score_type] = document.getElementById(score_type + "-" + table_type);
-            }
-        }
-    }
-}
-function getScoreElements() {
-    for (let i = 0; i < table_types.length; i++) {
-        let table_type = table_types[i];
-
-        table_elements[table_type]['overlay'] = document.getElementById("overlay-" + table_type);
-        table_elements[table_type]['chart'] = document.getElementById("chart-" + table_type);
-        table_elements[table_type]['button'] = document.getElementById("table-" + table_type);
-    }
-}
-function bindHanButtons() {
-    for (let i = 0; i < han_types.length; i++) {    
-        let han_type = han_types[i]["type"];   
-        han_buttons[han_type].onclick = (ev) => {
-            if (isNumberHan(han_types[i]["n"])) {
-                removeClass(han_buttons[han_type], "han-blue");
-                removeClass(han_buttons[han_type], "han-red");
-                addClass(han_buttons[han_type], "han-green");
-                revealYaku();
-            } else {
-                removeClass(han_buttons[han_type], "han-blue");
-                removeClass(han_buttons[han_type], "han-green");
-                addClass(han_buttons[han_type], "han-red");
-            }
-        };
-    }
-}
-function bindScoreButtons() {
-    for (let i = 0; i < table_types.length; i++) {
-        let table_type = table_types[i];
-        
-        for (let j = 0; j < score_types.length; j++) {
-            let score_type = score_types[j];
-            if (score_buttons[table_type][score_type] == null) {
-                continue;
-            }
-            
-            let k = +special_score_types.has(score_type);
-            score_buttons[table_type][score_type].onclick = (ev) => {
-                if (isScore(score_type)) {
-                    removeClass(score_buttons[table_type][score_type], ["han-blue", "pts-blue"][k]);
-                    removeClass(score_buttons[table_type][score_type],["han-red", "pts-red"][k]);
-                    addClass(score_buttons[table_type][score_type], ["han-green", "pts-green"][k]);
-                    revealYaku();
-                } else {
-                    removeClass(score_buttons[table_type][score_type], ["han-blue", "pts-blue"][k]);
-                    removeClass(score_buttons[table_type][score_type], ["han-green", "pts-green"][k]);
-                    addClass(score_buttons[table_type][score_type], ["han-red", "pts-red"][k]);
-                }
-            };
-        }
-    }
-}
-function bindScoreElements() {
-    for (let i = 0; i < table_types.length; i++) {
-        let table_type = table_types[i];
-        if (table_elements[table_type]['overlay'] == null) {
-            continue;
-        }
-
-        table_elements[table_type]['chart'].addEventListener("click", function(e) {
-            e.stopPropagation();
-        });
-        table_elements[table_type]['overlay'].addEventListener("click", function(e) {
-            removeClass(table_elements[table_type]['overlay'], "overlay");
-            removeClass(table_elements[table_type]['overlay'], "overlay-show");
-            addClass(table_elements[table_type]['overlay'], "overlay-hide");
-        });
-        table_elements[table_type]['button'].onclick = (ev) => {
-            removeClass(table_elements[table_type]['overlay'], "overlay");
-            removeClass(table_elements[table_type]['overlay'], "overlay-hide");
-            addClass(table_elements[table_type]['overlay'], "overlay-show");
-        };
-    }
-}         
-function resetHanButtons() {
-    for (let i = 0; i < han_types.length; i++) {
-        let han_type = han_types[i]["type"];
-        let button_element = han_buttons[han_type];
-
-        if (button_element != null) {
-            removeClass(button_element, "han-green");
-            removeClass(button_element, "han-red");
-            addClass(button_element, "han-blue");
-        }
-    }
-}
-function resetScoreButtons() {
-    for (let i = 0; i < table_types.length; i++) {
-        let table_type = table_types[i];
-        for (let j = 0; j < score_types.length; j++) {
-            let score_type = score_types[j];
-            let button_element = score_buttons[table_type][score_type];
-
-            if (button_element != null) {
-                removeClass(button_element, "pts-green");
-                removeClass(button_element, "pts-red");
-                addClass(button_element, "pts-blue");
-            }
-        }
-    }
-}
 
 const TILE_BACK_HTML = `<image x="2" y="2" width="60" height="80" href="static/svgs/Back.png"/>
 <rect class="back-border" width="60" height="80" x="2" y="2" rx="6"/>`
@@ -175,7 +43,13 @@ const TILE_HORIZ2_HTML = `<image transform="rotate(90 10 70)" x="5" y="-2" width
 <image transform="rotate(90 40 40)" x="2" y="-2" width="60" height="80" href="static/svgs/Front.png"></image>
 <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/svgs/Regular/!REPLACE.svg"></image>
 <rect class="tile-border" width="80" height="60" x="2" y="2" rx="6"/>`
-const TILE_HTML = [TILE_BACK_HTML, TILE_REGULAR_HTML, TILE_HORIZ_HTML, TILE_HORIZ2_HTML, TILE_BACK_HTML];
+const TILE_HORIZ3_HTML = `<image transform="rotate(90 10 70)" x="5" y="-2" width="60" height="80" href="static/svgs/Front.png"></image>
+<image transform="rotate(90 10 70)" x="11.5" y="8" width="45" height="60" href="static/svgs/Regular/!REPLACEBOTTOM.svg"></image>
+<rect class="tile-border" width="80" height="60" x="2" y="64" rx="6"/>
+<image transform="rotate(90 40 40)" x="2" y="-2" width="60" height="80" href="static/svgs/Front.png"></image>
+<image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/svgs/Regular/!REPLACETOP.svg"></image>
+<rect class="tile-border" width="80" height="60" x="2" y="2" rx="6"/>`
+const TILE_HTML = [TILE_BACK_HTML, TILE_REGULAR_HTML, TILE_HORIZ_HTML, TILE_HORIZ2_HTML, TILE_BACK_HTML, TILE_HORIZ3_HTML];
 const TILE_TO_FILE = createTileToFile();
 function createTileToFile() {
     out = {};
@@ -220,23 +94,95 @@ function createTileToFile() {
     return out;
 }
 
-let current_hand = {};
-let current_yaku = {};
-let current_han = 5;
-let current_fu = -1;
-let current_score = "mangan";
-
-const ALL_YAKU = {};
-const VISIBLE_YAKU = ["riichi", "ippatsu", "double", "rinshan", "chankan", "haitei", "houtei", "chiihou", "tenhou"];
-
+const ALL_YAKU = [
+    {"jp": '門前清自摸和', "en": "TSUMO"},
+    {"jp": '立直', "en": "RIICHI"},
+    {"jp": '一発', "en": "IIPATSU"},
+    {"jp": '槍槓', "en": "CHANKAN"},
+    {"jp": '嶺上開花', "en": "RINSHAN"},
+    {"jp": '海底撈月', "en": "HAITEI"},  
+    {"jp": '河底撈魚', "en": "HOUTEI"},
+    {"jp": '平和', "en": "PINFU"},
+    {"jp": '断幺九', "en": "TANYAO"},
+    {"jp": '一盃口', "en": "IIPEIKOU"},
+    {"jp": '自風 東', "en": "SEAT EAST"},
+    {"jp": '自風 南', "en": "SEAT SOUTH"},
+    {"jp": '自風 西', "en": "SEAT WEST"},
+    {"jp": '自風 北', "en": "SEAT NORTH"},
+    {"jp": '場風 東', "en": "ROUND EAST"},
+    {"jp": '場風 南', "en": "ROUND SOUTH"},
+    {"jp": '場風 西', "en": "ROUND WEST"},
+    {"jp": '場風 北', "en": "ROUND NORTH"},
+    {"jp": '役牌 白', "en": "YAKUHAI WHITE"},
+    {"jp": '役牌 發', "en": "YAKUHAI GREEN"},
+    {"jp": '役牌 中', "en": "YAKUHAI RED"},
+    {"jp": '両立直', "en": "DOUBLE RIICHI"},
+    {"jp": '七対子', "en": "CHIITOI"},
+    {"jp": '混全帯幺九', "en": "CHANTA"},
+    {"jp": '一気通貫', "en": "ITTSUU"},
+    {"jp": '三色同順', "en": "SANSHOKU DOUJUN"},
+    {"jp": '三色同刻', "en": "SANSHOKU DOUKOU"},
+    {"jp": '三槓子', "en": "SANKANTSU"},
+    {"jp": '対々和', "en": "TOITOI"},
+    {"jp": '三暗刻', "en": "SANANKOU"},
+    {"jp": '小三元', "en": "SHOUSANGEN"},
+    {"jp": '混老頭', "en": "HONROUTOU"},
+    {"jp": '二盃口', "en": "RYANPEIKOU"},
+    {"jp": '純全帯幺九', "en": "JUNCHAN"},
+    {"jp": '混一色', "en": "HONITSU"},
+    {"jp": '清一色', "en": "CHINITSU"},
+    {"jp": '人和', "en": "RENHOU"},
+    {"jp": '天和', "en": "TENHOU"},
+    {"jp": '地和', "en": "CHIIHOU"},
+    {"jp": '大三元', "en": "DAISANGEN"},
+    {"jp": '四暗刻', "en": "SUUANKOU"},
+    {"jp": '四暗刻単騎', "en": "SUUANKOU TANKI"},
+    {"jp": '字一色', "en": "TSUUIISOU"},
+    {"jp": '緑一色', "en": "RYUUIISOU"},
+    {"jp": '清老頭', "en": "CHINROUTOU"},
+    {"jp": '九蓮宝燈', "en": "CHUUREN POUTOU"},
+    {"jp": '純正九蓮宝燈', "en": "JUNSEI CHUUREN POUTOU"},
+    {"jp": '国士無双', "en": "KOKUSHI MUSOU"},
+    {"jp": '国士無双１３面待ち', "en": "KOKUSHI MUSOU JUUSAN MENMACHI"},
+    {"jp": '大四喜', "en": "DAISUUSHII"},
+    {"jp": '小四喜', "en": "SHOUSUUSHII"},
+    {"jp": '四槓子', "en": "SUUKANTSU"},
+    {"jp": 'ドラ', "en": "DORA"},
+    {"jp": '裏ドラ', "en": "URADORA"},
+    {"jp": '赤ドラ', "en": "AKADORA"}
+];
+const VISIBLE_YAKU = [1, 2, 21, 4, 3, 5, 6, 38, 37];
 const BACK = 0;
 const REGULAR = 1;
 const HORIZ = 2;
 const HORIZ2 = 3;
 const HIDE = 4;
+const HORIZ3 = 5; // top of shouminkan is aka
+
+const AGARI_HEADER_ID = ["win-by-tsumo", "win-by-ron"];
+const AGARI_TITLE_ID = ["title-tsumo", "title-ron"];
+const TSUMO = 0;
+const RON = 1;
+
+const WIND_TEXT = ["「東」East", "「南」South", "「西」West", "「北」North"];
+const EAST = 0;
+const SOUTH = 1;
+const WEST = 2;
+const NORTH = 3;
+
+let current_closed = []; //
+let current_open = []; //
+let current_yaku = Array(55).fill(0); //
+let current_win_type = TSUMO; //
+let current_agari_tile = ""; //
+let current_han = 0; //
+let current_fu = 0; //
+let current_limit = ""; //
+let current_score_type = "0h0f"; //
+
 function setTileParams(id, type) {
     let el = document.getElementById(id);
-    switch(type) {
+    switch(parseInt(type)) {
         case BACK:
             el.setAttribute("viewBox", "0 0 64 84");
             el.setAttribute("width", "64");
@@ -262,30 +208,241 @@ function setTileParams(id, type) {
             el.setAttribute("width", "0");
             el.setAttribute("height", "0");
             break;
+        case HORIZ3:
+            el.setAttribute("viewBox", "0 0 84 126");
+            el.setAttribute("width", "84");
+            el.setAttribute("height", "126");
+            break;
     }
 }
 
-const AGARI_HEADER_ID = ["win-by-tsumo", "win-by-ron"]; 
-const AGARI_TITLE_ID = ["title-tsumo", "title-ron"]; 
-const TSUMO = 0;
-const RON = 1;
-
-const WIND_TEXT = ["「東」East", "「南」South", "「西」West", "「北」North"];
-const EAST = 0;
-const SOUTH = 1;
-const WEST = 2;
-const NORTH = 3;
-
-function setVisibleYaku() {
+function hasClass(el, className) {
+    if (el.classList)
+        return el.classList.contains(className);
+    return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
 }
+function addClass(el, className) {
+    if (el.classList)
+        el.classList.add(className)
+    else if (!hasClass(el, className))
+        el.className += " " + className;
+}
+function removeClass(el, className) {
+    if (el.classList)
+        el.classList.remove(className)
+    else if (hasClass(el, className)) {
+        var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+        el.className = el.className.replace(reg, ' ');
+    }
+}
+
+function getHanButtons() {
+    for (let i = 0; i < HAN_TYPES.length; i++) {
+        let han_type = HAN_TYPES[i]["type"];
+        let han_button = document.getElementById(han_type);
+        han_buttons[han_type] = han_button;
+    }
+}
+function getScoreButtons() {
+    for (let i = 0; i < TABLE_TYPES.length; i++) {
+        let table_type = TABLE_TYPES[i];
+        for (let j = 0; j < SCORE_TYPES.length; j++) {
+            let score_type = SCORE_TYPES[j];
+            if (document.getElementById(score_type + "-" + table_type) != null) {
+                score_buttons[table_type][score_type] = document.getElementById(score_type + "-" + table_type);
+            }
+        }
+    }
+}
+function getScoreElements() {
+    for (let i = 0; i < TABLE_TYPES.length; i++) {
+        let table_type = TABLE_TYPES[i];
+
+        table_elements[table_type]['overlay'] = document.getElementById("overlay-" + table_type);
+        table_elements[table_type]['chart'] = document.getElementById("chart-" + table_type);
+        table_elements[table_type]['button'] = document.getElementById("table-" + table_type);
+    }
+}
+function bindHanButtons() {
+    for (let i = 0; i < HAN_TYPES.length; i++) {
+        let han_type = HAN_TYPES[i]["type"];
+        han_buttons[han_type].onclick = (ev) => {
+            if (isNumberHan(HAN_TYPES[i]["n"])) {
+                removeClass(han_buttons[han_type], "han-blue");
+                removeClass(han_buttons[han_type], "han-red");
+                addClass(han_buttons[han_type], "han-green");
+                revealYaku();
+            } else {
+                removeClass(han_buttons[han_type], "han-blue");
+                removeClass(han_buttons[han_type], "han-green");
+                addClass(han_buttons[han_type], "han-red");
+            }
+        };
+    }
+}
+function bindScoreButtons() {
+    for (let i = 0; i < TABLE_TYPES.length; i++) {
+        let table_type = TABLE_TYPES[i];
+
+        for (let j = 0; j < SCORE_TYPES.length; j++) {
+            let score_type = SCORE_TYPES[j];
+            if (score_buttons[table_type][score_type] == null) {
+                continue;
+            }
+
+            let k = +(SPECIAL_SCORE_SET.has(score_type));
+            score_buttons[table_type][score_type].onclick = (ev) => {
+                if (isScore(score_type)) {
+                    removeClass(score_buttons[table_type][score_type], ["han-blue", "pts-blue"][k]);
+                    removeClass(score_buttons[table_type][score_type],["han-red", "pts-red"][k]);
+                    addClass(score_buttons[table_type][score_type], ["han-green", "pts-green"][k]);
+                    revealYaku();
+                } else {
+                    removeClass(score_buttons[table_type][score_type], ["han-blue", "pts-blue"][k]);
+                    removeClass(score_buttons[table_type][score_type], ["han-green", "pts-green"][k]);
+                    addClass(score_buttons[table_type][score_type], ["han-red", "pts-red"][k]);
+                }
+            };
+        }
+    }
+}
+function bindScoreElements() {
+    for (let i = 0; i < TABLE_TYPES.length; i++) {
+        let table_type = TABLE_TYPES[i];
+        if (table_elements[table_type]['overlay'] == null) {
+            continue;
+        }
+
+        table_elements[table_type]['chart'].addEventListener("click", function(e) {
+            e.stopPropagation();
+        });
+        table_elements[table_type]['overlay'].addEventListener("click", function(e) {
+            removeClass(table_elements[table_type]['overlay'], "overlay");
+            removeClass(table_elements[table_type]['overlay'], "overlay-show");
+            addClass(table_elements[table_type]['overlay'], "overlay-hide");
+        });
+        table_elements[table_type]['button'].onclick = (ev) => {
+            removeClass(table_elements[table_type]['overlay'], "overlay");
+            removeClass(table_elements[table_type]['overlay'], "overlay-hide");
+            addClass(table_elements[table_type]['overlay'], "overlay-show");
+        };
+    }
+}
+function resetHanButtons() {
+    for (let i = 0; i < HAN_TYPES.length; i++) {
+        let han_type = HAN_TYPES[i]["type"];
+        let button_element = han_buttons[han_type];
+
+        if (button_element != null) {
+            removeClass(button_element, "han-green");
+            removeClass(button_element, "han-red");
+            addClass(button_element, "han-blue");
+        }
+    }
+}
+function resetScoreButtons() {
+    for (let i = 0; i < TABLE_TYPES.length; i++) {
+        let table_type = TABLE_TYPES[i];
+        for (let j = 0; j < SCORE_TYPES.length; j++) {
+            let score_type = SCORE_TYPES[j];
+            let button_element = score_buttons[table_type][score_type];
+
+            if (button_element != null) {
+                removeClass(button_element, "pts-green");
+                removeClass(button_element, "pts-red");
+                addClass(button_element, "pts-blue");
+            }
+        }
+    }
+}
+
+function setVisibleYaku(yaku) {
+    let stick = document.getElementById("riichi-stick");
+    removeClass(stick, "riichi-gray");
+
+    for (let i = 0; i < VISIBLE_YAKU.length; i++) {
+        let el = document.getElementById(`yaku${VISIBLE_YAKU[i]}`);
+        removeClass(el, "yaku-gray");
+        removeClass(el, "yaku-green");
+
+        if (yaku[VISIBLE_YAKU[i]] != 0) {
+            addClass(el, "yaku-green");
+            if (VISIBLE_YAKU[i] == 1) {
+                addClass(stick, "riichi-stick")
+            }
+        } else {
+            addClass(el, "yaku-gray");
+            if (VISIBLE_YAKU[i] == 1) {
+                addClass(stick, "riichi-gray")
+            }
+        }
+    }
+}
+function resetVisibleYaku() {
+    setVisibleYaku(Array(55).fill(0));
+}
+
 function hideYaku() {
+    document.getElementById("yaku-row").hidden = true;
 }
-function revealYaku() {
+function showYaku() {
+    document.getElementById("yaku-row").hidden = false;
+}
+function setYaku(yaku) {
+    console.log(yaku.reduce((sum, a) => sum + a, 0));
+    if (yaku.reduce((sum, a) => sum + a, 0) <= 0) {
+        resetYaku();
+        return;
+    }
+
+    let s = "";
+    for (let i = 0; i < Math.min(ALL_YAKU.length, yaku.length); i++) {
+        let han = yaku[i];
+        if (han > 0) {
+            s += `「${ALL_YAKU[i].jp}」${ALL_YAKU[i].en} (${han}), `; 
+        }
+    }
+    document.getElementById("yaku-text").innerText = s.trim();
+}
+function resetYaku() {
+    document.getElementById("yaku-text").innerText = "no yaku!";
+}
+function hideScore() {
+    document.getElementById("score-row").hidden = true;
+}
+function showScore() {
+    document.getElementById("score-row").hidden = false;
+}
+function setScore(han, fu, limit) {
+    if (limit > 0) {
+        document.getElementById("score-text").innerText = `「${SPECIAL_SCORE_TYPES[limit].jp}」${SPECIAL_SCORE_TYPES[limit].en}`;
+        document.getElementById("score-breakdown").hidden = true;
+        document.getElementById("score-text").hidden = false;
+    } else {
+        if (han >= 13) {
+            document.getElementById("han-text").innerText = "13+";
+        } else {
+            document.getElementById("han-text").innerText = han;
+        }
+        document.getElementById("fu-text").innerText = fu;
+        document.getElementById("score-breakdown").hidden = false;
+        document.getElementById("score-text").hidden = true;
+    }
+}
+function resetScore() {
+    document.getElementById("score-text").innerText = "no score!";
+    document.getElementById("han-text").innerText = 0;
+    document.getElementById("fu-text").innerText = 0;
+    document.getElementById("score-breakdown").hidden = false;
+    document.getElementById("score-text").hidden = true;
 }
 
 function setWinds(round_wind, seat_wind) {
     document.getElementById("round-wind").innerText = WIND_TEXT[round_wind];
     document.getElementById("seat-wind").innerText = WIND_TEXT[seat_wind];
+}
+function resetWinds() {
+    setWinds(EAST, EAST);
 }
 function setWinBy(win_type, win_tile) {
     // set header top left
@@ -300,8 +457,21 @@ function setWinBy(win_type, win_tile) {
     document.getElementById("agari-tile").innerHTML = TILE_REGULAR_HTML.replace("!REPLACE", TILE_TO_FILE[win_tile]);
     setTileParams("agari-tile", REGULAR);
 }
-function setHand(closed_tiles, open_tiles) {
-    // reset 
+function resetWinBy() {
+    // set header top left
+    document.getElementById(AGARI_HEADER_ID[TSUMO]).hidden = false;
+    document.getElementById(AGARI_HEADER_ID[RON]).hidden = true;
+
+    // set hand subtitle
+    document.getElementById(AGARI_TITLE_ID[TSUMO]).hidden = false;
+    document.getElementById(AGARI_TITLE_ID[RON]).hidden = true;
+
+    // set tile
+    document.getElementById("agari-tile").innerHTML = TILE_BACK_HTML;
+    setTileParams("agari-tile", BACK);
+}
+
+function resetHand() {
     document.getElementById("hand").style.zoom = "1";
     for (let i = 0; i < 13; i++) {
         document.getElementById(`closed${i}`).innerHTML = TILE_BACK_HTML;
@@ -311,15 +481,22 @@ function setHand(closed_tiles, open_tiles) {
         document.getElementById(`open${i}`).innerHTML = TILE_BACK_HTML;
         setTileParams(`open${i}`, HIDE);
     }
-
+}
+function setHand(closed_tiles, open_tiles) {
+    resetHand();
     // set
     for (let i = 0; i < Math.min(13, closed_tiles.length); i++) {
         document.getElementById(`closed${i}`).innerHTML = TILE_REGULAR_HTML.replace("!REPLACE", TILE_TO_FILE[closed_tiles[i]]);
         setTileParams(`closed${i}`, REGULAR);
     }
     for (let i = 0; i < Math.min(16, (13 - Math.min(13, closed_tiles.length))/3*4, open_tiles.length); i++) {
-        document.getElementById(`open${i}`).innerHTML = TILE_HTML[open_tiles[i].type].replace("!REPLACE", TILE_TO_FILE[open_tiles[i].tile]);
         setTileParams(`open${i}`, open_tiles[i].type);
+        if (open_tiles[i].type == HORIZ3) {
+            document.getElementById(`open${i}`).innerHTML = TILE_HTML[open_tiles[i].type].replace("!REPLACETOP", TILE_TO_FILE[open_tiles[i].tile.substring(0, 2) + "0"]);
+            document.getElementById(`open${i}`).innerHTML = TILE_HTML[open_tiles[i].type].replace("!REPLACEBOTTOM", TILE_TO_FILE[open_tiles[i].tile]);
+        } else {
+            document.getElementById(`open${i}`).innerHTML = TILE_HTML[open_tiles[i].type].replaceAll("!REPLACE", TILE_TO_FILE[open_tiles[i].tile]);
+        }       
     }
 
     let scale = 1008.0/(document.getElementById("hand-row-main").getBoundingClientRect().width - 39);
@@ -365,9 +542,27 @@ function setUradora(riichi, num_visible, uradora) {
     }
 }
 
+function resetAll() {
+    hideScore();
+    hideYaku();
+    resetHanButtons();
+    resetScoreButtons();
+    resetVisibleYaku();
+    resetWinds();
+    resetWinBy();
+    resetYaku();
+    resetScore();
+    resetHand();
+}
+function newPuzzle() {
+    resetAll();
+}
+
 getHanButtons();
 getScoreButtons();
 getScoreElements();
 bindHanButtons();
 bindScoreButtons();
 bindScoreElements();
+
+newPuzzle();
