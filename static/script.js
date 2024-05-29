@@ -431,7 +431,7 @@ function setYaku(yaku) {
     for (let i = 0; i < Math.min(ALL_YAKU.length, yaku.length); i++) {
         let han = yaku[i];
         if (han > 0) {
-            s += `「${ALL_YAKU[i].jp}」${ALL_YAKU[i].en} (${han}), `; 
+            s += `「${ALL_YAKU[i].jp}」${ALL_YAKU[i].en.toLowerCase()} (${han}), `; 
         }
     }
     document.getElementById("yaku-text").innerText = s.replace(/,\s*$/, "");
