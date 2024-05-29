@@ -551,6 +551,7 @@ function resetDora() {
     }
 }
 function setDora(num_visible, dora) {
+    resetDora();
     // set
     for (let i = 0; i < Math.min(5, num_visible); i++) {
         document.getElementById(`dora${i}`).innerHTML = TILE_REGULAR_HTML.replace("!REPLACE", TILE_TO_FILE[dora[i]]);
@@ -558,6 +559,7 @@ function setDora(num_visible, dora) {
     }
 }
 function resetUradora() {
+    resetUradora();
     // reset
     for (let i = 0; i < 5; i++) {
         document.getElementById(`ura${i}`).innerHTML = TILE_BACK_HTML;
