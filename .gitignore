@@ -2,3 +2,5 @@ log-libraries/phoenix-logs/logs/*
 log-libraries/phoenix-logs/db/*
 log-libraries/tenhou-log/logs/*
 log-libraries/tenhou-log/agari_logs/*
+log-libraries/logs/*
+log-libraries/agari_logs/*
