@@ -2,6 +2,7 @@ from os import listdir
 from os.path import isfile, join
 from json import loads
 from tenhou_wall_reproducer import reproduce
+import sqlite3
 
 PATH = "../agari_logs"
 FILES = [f for f in listdir(PATH) if isfile(join(PATH, f))]
@@ -84,7 +85,7 @@ def tile_to_id(s):
     i = int(s[2])
     return (TILE_ID[s[:2]] << 2) | i
 
-def encode(agari, wall, seed):
+def encode(agari, wall, seed, code, code_idx):
     agari = agari.replace("\'", "\"").replace("False", "\"False\"").replace("True", "\"True\"")
     data = loads(agari)
     
@@ -175,30 +176,72 @@ def encode(agari, wall, seed):
                     tile = tile_to_id(grp["tiles"].pop(0))
                     melds.append((tile, 1))
     
-    doras = wall[6:16:2][:len(data["dora"])]
-    uradoras = wall[5:15:2][:len(data["dora"])]
+    uradoras = wall[4:14:2][:len(data["dora"])]
+    doras = wall[5:15:2][:len(data["dora"])]
 
-    targ_seed = ""
-    if seed == targ_seed:
-        print(win, round_wind, seat_wind, han, fu, limit, machi_tile, doras, uradoras, hand, melds, sep="  | ")
+    store(f"{code}:{code_idx}", win, round_wind, seat_wind, han, fu, limit, machi_tile, doras, uradoras, hand, melds, yaku)
     # necessary data: roundwind, seatwind, win by, dora, uradora, yaku, score(hanfu/limit), handshape
     
 # keys: *round, *oya, *type, *player, *hand, *fu, *points, *limit, *dora, *machi, melds, *closed, *uradora, -fromplayer, *yaku, *yakuman
 # shouminkan, ankan under kan (ankan if not has fromPlayer); daiminkan under chakan
 
+INSERT_GENERAL = """INSERT OR REPLACE INTO general (code, win_type, round_wind, seat_wind, han, fu, score_limit, machi) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"""
+INSERT_DORA = """INSERT OR REPLACE INTO dora (code, dora0, dora1, dora2, dora3, dora4, ura0, ura1, ura2, ura3, ura4) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+INSERT_HAND = """INSERT OR REPLACE INTO hand (code, closed0, closed1, closed2, closed3, closed4, closed5, closed6, closed7, closed8, closed9, closed10, closed11, closed12, open0, open1, open2, open3, open4, open5, open6, open7, open8, open9, open10, open11, open12, open13, open14, open15, open_type0, open_type1, open_type2, open_type3, open_type4, open_type5, open_type6, open_type7, open_type8, open_type9, open_type10, open_type11, open_type12, open_type13, open_type14, open_type15) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+INSERT_YAKU = """INSERT OR REPLACE INTO yaku (code, yaku0, yaku1, yaku2, yaku3, yaku4, yaku5, yaku6, yaku7, yaku8, yaku9, yaku10, yaku11, yaku12, yaku13, yaku14, yaku15, yaku16, yaku17, yaku18, yaku19, yaku20, yaku21, yaku22, yaku23, yaku24, yaku25, yaku26, yaku27, yaku28, yaku29, yaku30, yaku31, yaku32, yaku33, yaku34, yaku35, yaku36, yaku37, yaku38, yaku39, yaku40, yaku41, yaku42, yaku43, yaku44, yaku45, yaku46, yaku47, yaku48, yaku49, yaku50, yaku51, yaku52, yaku53, yaku54) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"""
+
+def store(code, win, round_wind, seat_wind, han, fu, limit, machi_tile, doras, uradoras, hand, melds, yaku):
+    #print("WN | RO | SE | HN | FU | LM | MA | DO | UR | CL | OP")
+    #print(win, round_wind, seat_wind, han, fu, limit, machi_tile, doras, uradoras, hand, melds, yaku, sep="  | ")
+    #print(code)
+    
+    # code       | string
+    # win        | 1 bit
+    # round wind | 2 bits
+    # seat wind  | 2 bits
+    # han        | 4 bits
+    # fu         | 7 bits
+    # limit      | 3 bits
+    # machi      | 8 bits
+    # dora 0-4   | 8 bits per
+    # ura 0-4    | 8 bits per
+    # hand 0-12  | 8 bits per
+    # melds 0-15 | pair 8 bits per
+    # yaku 0-54  | 4 bits per
+    
+    doras += [-1] * (5 - len(doras))
+    uradoras += [-1] * (5 - len(uradoras))
+    hand += [-1] * (13 - len(hand))
+    melds += [(-1, -1) for _ in range(16 - len(melds))]
+    yaku += [0] * (55 - len(yaku))
+    
+    assert len(doras) == 5
+    assert len(uradoras) == 5
+    assert len(hand) == 13
+    assert len(melds) == 16
+    assert len(yaku) == 55
+    
+    con = sqlite3.connect("../agari.db")
+    cur = con.cursor()
+    
+    cur.execute(INSERT_GENERAL, (code, win, round_wind, seat_wind, han, fu, limit, machi_tile))
+    cur.execute(INSERT_DORA, (code, *doras, *uradoras))
+    cur.execute(INSERT_HAND, (code, *hand, *[v[0] for v in melds], *[v[1] for v in melds]))
+    cur.execute(INSERT_YAKU, (code, *yaku))
+    
+    con.commit()
+    con.close()
+
 def main():
-    print(len(FILES))
     for i, f in enumerate(FILES):    
         lines = []
         with open(join(PATH, f), "r") as file:
             for line in file:
                 lines.append(line.strip())
-                
-        #print("WN | RO | SE | HN | FU | LM | MA | DO | UR | TILES")
         
         walls = reproduce(lines[0], len(lines) - 1)
-        for i in range(len(lines) - 1):
-            encode(lines[i+1], walls[i][0], lines[0])
+        for j in range(len(lines) - 1):
+            encode(lines[j+1], walls[j][0], lines[0], f[:-4], j)
             
         if not (i+1)%250:
             print(f"{i+1}/{TOTAL_FILES} complete")

@@ -50,6 +50,12 @@ const TILE_HORIZ3_HTML = `<image transform="rotate(90 10 70)" x="5" y="-2" width
 <image transform="rotate(90 40 40)" x="9.5" y="8" width="45" height="60" href="static/svgs/Regular/!REPLACETOP.svg"></image>
 <rect class="tile-border" width="80" height="60" x="2" y="2" rx="6"/>`
 const TILE_HTML = [TILE_BACK_HTML, TILE_REGULAR_HTML, TILE_HORIZ_HTML, TILE_HORIZ2_HTML, TILE_BACK_HTML, TILE_HORIZ3_HTML];
+const TILE_LIST = [
+    "1m", "2m", "3m", "4m", "5m", "6m", "7m", "8m", "9m",
+    "1p", "2p", "3p", "4p", "5p", "6p", "7p", "8p", "9p",
+    "1s", "2s", "3s", "4s", "5s", "6s", "7s", "8s", "9s",
+    "ew", "sw", "ww", "nw", "wd", "gd", "rd"
+]
 const TILE_TO_FILE = createTileToFile();
 function createTileToFile() {
     out = {};
@@ -89,6 +95,10 @@ function createTileToFile() {
         out[`wd${j}`] = "Haku";
         out[`gd${j}`] = "Hatsu";
         out[`rd${j}`] = "Chun";
+    }
+
+    for (let i = 0; i < 136; i++) {
+        out[i] = out[`${TILE_LIST[i>>2]}${i&3}`]
     }
 
     return out;
@@ -171,14 +181,18 @@ const WEST = 2;
 const NORTH = 3;
 
 let current_closed = []; //
+let current_winds = [0, 0]; //
 let current_open = []; //
+let current_dora = []; //
+let current_ura = []; //
+let current_is_riichi = false;
 let current_yaku = Array(55).fill(0); //
 let current_win_type = TSUMO; //
 let current_agari_tile = ""; //
 let current_han = 0; //
 let current_fu = 0; //
 let current_limit = ""; //
-let current_score_type = "0h0f"; //
+let current_score = "0h0f"; //
 
 function setTileParams(id, type) {
     let el = document.getElementById(id);
@@ -271,7 +285,7 @@ function bindHanButtons() {
                 removeClass(han_buttons[han_type], "han-blue");
                 removeClass(han_buttons[han_type], "han-red");
                 addClass(han_buttons[han_type], "han-green");
-                revealYaku();
+                showYaku();
             } else {
                 removeClass(han_buttons[han_type], "han-blue");
                 removeClass(han_buttons[han_type], "han-green");
@@ -286,6 +300,7 @@ function bindScoreButtons() {
 
         for (let j = 0; j < SCORE_TYPES.length; j++) {
             let score_type = SCORE_TYPES[j];
+            //console.log(score_type);
             if (score_buttons[table_type][score_type] == null) {
                 continue;
             }
@@ -296,7 +311,7 @@ function bindScoreButtons() {
                     removeClass(score_buttons[table_type][score_type], ["han-blue", "pts-blue"][k]);
                     removeClass(score_buttons[table_type][score_type],["han-red", "pts-red"][k]);
                     addClass(score_buttons[table_type][score_type], ["han-green", "pts-green"][k]);
-                    revealYaku();
+                    showScore();
                 } else {
                     removeClass(score_buttons[table_type][score_type], ["han-blue", "pts-blue"][k]);
                     removeClass(score_buttons[table_type][score_type], ["han-green", "pts-green"][k]);
@@ -346,14 +361,31 @@ function resetScoreButtons() {
         for (let j = 0; j < SCORE_TYPES.length; j++) {
             let score_type = SCORE_TYPES[j];
             let button_element = score_buttons[table_type][score_type];
+            let k = +(SPECIAL_SCORE_SET.has(score_type));
 
             if (button_element != null) {
-                removeClass(button_element, "pts-green");
-                removeClass(button_element, "pts-red");
-                addClass(button_element, "pts-blue");
+                removeClass(button_element, ["han-green", "pts-green"][k]);
+                removeClass(button_element, ["han-red", "pts-red"][k]);
+                addClass(button_element, ["han-blue", "pts-blue"][k]);
             }
         }
     }
+}
+function showButtons(win_type, is_oya) {
+    let state = win_type;
+    if (!is_oya) {
+        state |= 2;
+    }
+
+    document.getElementById("dealer-tsumo").hidden = state != 0;
+    document.getElementById("dealer-ron").hidden = state != 1;
+    document.getElementById("nondealer-tsumo").hidden = state != 2;
+    document.getElementById("nondealer-ron").hidden = state != 3;
+
+    document.getElementById("overlay-dts").hidden = state != 0;
+    document.getElementById("overlay-dr").hidden = state != 1;
+    document.getElementById("overlay-ndts").hidden = state != 2;
+    document.getElementById("overlay-ndr").hidden = state != 3;
 }
 
 function setVisibleYaku(yaku) {
@@ -389,7 +421,7 @@ function showYaku() {
     document.getElementById("yaku-row").hidden = false;
 }
 function setYaku(yaku) {
-    console.log(yaku.reduce((sum, a) => sum + a, 0));
+    //console.log(yaku.reduce((sum, a) => sum + a, 0));
     if (yaku.reduce((sum, a) => sum + a, 0) <= 0) {
         resetYaku();
         return;
@@ -402,7 +434,7 @@ function setYaku(yaku) {
             s += `「${ALL_YAKU[i].jp}」${ALL_YAKU[i].en} (${han}), `; 
         }
     }
-    document.getElementById("yaku-text").innerText = s.trim();
+    document.getElementById("yaku-text").innerText = s.replace(/,\s*$/, "");
 }
 function resetYaku() {
     document.getElementById("yaku-text").innerText = "no yaku!";
@@ -511,25 +543,28 @@ function isScore(score_type) {
     return (score_type == current_score);
 }
 
-function setDora(num_visible, dora) {
+function resetDora() {
     // reset
     for (let i = 0; i < 5; i++) {
         document.getElementById(`dora${i}`).innerHTML = TILE_BACK_HTML;
         setTileParams(`dora${i}`, BACK);
     }
-
+}
+function setDora(num_visible, dora) {
     // set
     for (let i = 0; i < Math.min(5, num_visible); i++) {
         document.getElementById(`dora${i}`).innerHTML = TILE_REGULAR_HTML.replace("!REPLACE", TILE_TO_FILE[dora[i]]);
         setTileParams(`dora${i}`, REGULAR);
     }
 }
-function setUradora(riichi, num_visible, uradora) {
+function resetUradora() {
     // reset
     for (let i = 0; i < 5; i++) {
         document.getElementById(`ura${i}`).innerHTML = TILE_BACK_HTML;
         setTileParams(`ura${i}`, BACK);
     }
+}
+function setUradora(riichi, num_visible, uradora) {
     // no ura if no riichi
     if (!riichi) {
         return
@@ -554,8 +589,56 @@ function resetAll() {
     resetScore();
     resetHand();
 }
-function newPuzzle() {
-    resetAll();
+async function fetchPuzData() {
+    return new Promise((resolve, reject) => {
+        const url = '/randompuzzle'
+        fetch(url)
+        .then(response => response.json())  
+        .then(json => {
+            resolve(json);
+        })
+    });
+}
+async function newPuzzle() {
+    //resetAll();
+    hideScore();
+    hideYaku();
+    resetHanButtons();
+    resetScoreButtons();
+    
+    let data = await fetchPuzData();
+    //console.log(data);
+
+    current_closed = data["closed_hand"];
+    current_open = data["open_hand"];
+    current_dora = data["dora"];
+    current_ura = data["uradora"];
+    current_winds = [data["round_wind"], data["seat_wind"]];
+    current_is_oya = data["seat_wind"] == 0;
+    current_is_riichi = data["yaku"][1] > 0;
+    current_yaku = data["yaku"];
+    current_win_type = data["win_type"];
+    current_agari_tile = data["machi"];
+    current_han = data["han"];
+    current_fu = data["fu"];
+    current_limit = data["score_limit"];
+
+    current_score = "0h0f"; //
+    if (current_limit > 0) {
+        current_score = SPECIAL_SCORE_TYPES[current_limit].en;
+    } else {
+        current_score = `${current_han}h${current_fu}f`;
+    }
+
+    setWinds(current_winds[0], current_winds[1]);
+    setWinBy(current_win_type, current_agari_tile);
+    setHand(current_closed, current_open);
+    setVisibleYaku(current_yaku);
+    setYaku(current_yaku);
+    setDora(current_dora.length, current_dora);
+    setUradora(current_is_riichi, current_dora.length, current_ura);
+    setScore(current_han, current_fu, current_limit);
+    showButtons(current_win_type, current_winds[1]);
 }
 
 getHanButtons();

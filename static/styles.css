@@ -324,7 +324,7 @@ body {
 }
 
 .han-green, .han-red, .han-blue {
-    width: 98px;
+    width: 95px;
 }
 
 .pts-blue, .han-blue {
@@ -385,7 +385,7 @@ body {
 }
 
 .ndts-small {
-    font-size: small;
+    font-size: 12px !important;
 }
 
 @keyframes custom-fadein {
@@ -439,7 +439,7 @@ body {
 .score-chart {
     display: grid;
     grid-template-rows: 32px 32px 32px 32px 32px;
-    grid-template-columns: 94px 84px 84px 84px 84px 84px 84px 84px 84px 84px 84px 84px;
+    grid-template-columns: 94px 94px 94px 94px 94px 94px 94px 94px 94px 94px 94px 94px;
     grid-column-gap: 8px;
     grid-row-gap: 12px;
     background-color: transparent;
@@ -460,7 +460,7 @@ body {
 }
 
 .narrow-cell {
-    width: 80px !important;
+    width: 90px !important;
 }
 
 .chart-button {
