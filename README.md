@@ -1,3 +1,5 @@
+Yes, there is a bug with determining uradora.
+
 # mahjong-hands
 
 credits:
