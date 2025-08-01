@@ -1,4 +1,6 @@
-Yes, there is a bug with determining uradora.
+** The site has been taken down following my graduation from high school. **
+
+There is a bug with determining uradora.
 
 # mahjong-hands
 
