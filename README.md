@@ -1,4 +1,4 @@
-** The site has been taken down following my graduation from high school. **
+**The site has been taken down following my graduation from high school.**
 
 There is a bug with determining uradora.
 
