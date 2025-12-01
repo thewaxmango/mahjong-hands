@@ -29,7 +29,7 @@ def randompuzzle():
     con.close()
     
     win_type, round_wind, seat_wind, han, fu, score_limit, machi = gen[1], gen[2], gen[3], gen[4], gen[5], gen[6], gen[7]
-    dora, uradora = do[1:6], do[6:12]
+    dora, uradora = do[1:6], do[6:11]
     closed_hand, open_hand = hand[1:14], [{"tile": hand[i], "type": hand[i+16]} for i in range(14, 30)]
     yaku = ya[1:]
     
